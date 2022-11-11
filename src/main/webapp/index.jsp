@@ -7,6 +7,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    if (request.getAttribute("mensaje") != null) {
+        out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+    }
+%>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -46,16 +52,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Carrito</a>
                     </li>
-                    <li class="nav-item">
                         <%
                             session = request.getSession();
-                            if(session.getAttribute("usuario") == null){
-                                out.println("<a class='nav-link' href='login.jsp'>Iniciar Sesión</a>");
+                            if(session.getAttribute("idusuario") == null){
+                                out.println("<li class='nav-item'>");
+                                    out.println("<a class='nav-link' href='login.jsp'>Iniciar Sesión</a>");
+                                out.println("</li>");
                             }else{
-                                out.println("<a class='nav-link' href='close_login'>Cerrar Sesión</a>");
+                                out.println("<li class='nav-item dropdown'>");
+                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'> Mi cuenta</a>");
+                                    out.println("<ul class='dropdown-menu'>");
+                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
+                                        out.println("<li><hr class='dropdown-divider'></li>");
+                                        out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
+                                    out.println("</ul>");
+                                out.println("</li>");
                             }
                         %>
-                    </li>
                 </ul>
             </div>
         </div>

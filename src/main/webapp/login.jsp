@@ -8,8 +8,12 @@
 
 <%
     session = request.getSession();
-    if(session.getAttribute("usuario") != null){
+    if(session.getAttribute("idusuario") != null){
         request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    if (request.getAttribute("mensaje") != null) {
+        out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
     }
 %>
 
@@ -27,7 +31,6 @@
 </head>
 <body>
     <!--INICIA BARRA DE NAVEGACIÓN-->
-    
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
         <div class="container-fluid">
             <div class="col-1">
@@ -39,13 +42,13 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="col-6 d-flex offset-1" role="search">
+                <form class="col-6 d-flex offset-1" role="search" action="#">
                     <input class="form-control me-2" type="search" placeholder="Buscar en la tienda" aria-label="Search">
                     <button class="btn btn-warning" type="submit">Buscar</button>
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 offset-1">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.jsp">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Lista de deseos</a>
@@ -53,16 +56,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Carrito</a>
                     </li>
-                    <li class="nav-item">
                         <%
                             session = request.getSession();
-                            if(session.getAttribute("usuario") == null){
-                                out.println("<a class='nav-link' href='login.jsp'>Iniciar Sesión</a>");
+                            if(session.getAttribute("idusario") == null){
+                                out.println("<li class='nav-item'>");
+                                    out.println("<a class='nav-link' href='login.jsp'>Iniciar Sesión</a>");
+                                out.println("</li>");
                             }else{
-                                out.println("<a class='nav-link' href='close_login'>Cerrar Sesión</a>");
+                                out.println("<li class='nav-item dropdown'>");
+                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'> Mi cuenta</a>");
+                                    out.println("<ul class='dropdown-menu'>");
+                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
+                                        out.println("<li><hr class='dropdown-divider'></li>");
+                                        out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
+                                    out.println("</ul>");
+                                out.println("</li>");
                             }
                         %>
-                    </li>
                 </ul>
             </div>
         </div>

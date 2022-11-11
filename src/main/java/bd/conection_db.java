@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +22,7 @@ public class conection_db {
     private static java.sql.Statement stmt = null;
     private static java.sql.ResultSet rs = null;
     
+    //Metodo para crear la conexion a la base de datos
     public static Connection conectar_db() throws SQLException, ClassNotFoundException{
         try {   
             Class.forName("com.mysql.cj.jdbc.Driver"); //hacer la conexion con la libreria
@@ -32,17 +34,7 @@ public class conection_db {
         return con;
     }
     
-    public static ResultSet consultar(String consulta) throws SQLException, ClassNotFoundException, ClassNotFoundException{
-        Connection con = conectar_db();
-        stmt = con.createStatement();
-        rs = stmt.executeQuery(consulta);
-        if(rs == null){
-            return rs;
-        }else{
-            return null;
-        }
-    }
-    
+    //Metodo para actualizar alguna tabla de la base de datos
     public static int actualizar(String consulta) throws SQLException, ClassNotFoundException, ClassNotFoundException{
         try{
             Connection con = conectar_db();
@@ -54,5 +46,31 @@ public class conection_db {
             System.err.println(e);
             return 0;
         }
+    }
+    
+    //Metodo para poder obtener los datos del usuario
+    public static String[] datos_usuario(String idusuario) throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        String[] usuario_datos = usuario_datos = new String[15];
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM usuarios WHERE idusuario = '"+idusuario+"';");
+        if(rs.next()){
+            usuario_datos[1] = rs.getString("nombreuser");
+            usuario_datos[2] = rs.getString("apellidosuser");
+            usuario_datos[3] = rs.getString("correouser");
+            usuario_datos[4] = rs.getString("password");
+            usuario_datos[5] = rs.getString("telefono");
+            usuario_datos[6] = rs.getString("cp");
+            usuario_datos[7] = rs.getString("calle");
+            usuario_datos[8] = rs.getString("colonia");
+            usuario_datos[9] = rs.getString("estado");
+            usuario_datos[10] = rs.getString("ciudad");
+            usuario_datos[11] = rs.getString("numint");
+            usuario_datos[12] = rs.getString("numext");
+            usuario_datos[13] = rs.getString("municipio");
+            usuario_datos[14] = rs.getString("referencia");
+            
+        }
+        return usuario_datos;
     }
 }

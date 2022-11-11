@@ -52,21 +52,24 @@ public class inciar_session extends HttpServlet {
         
         conection_db database = new conection_db();
         
-        Connection con = conectar_db();
+        Connection con = database.conectar_db();
         
-        String consulta = "SELECT correouser, password, idusuario FROM usuarios WHERE correouser = '"+correo+"' and password = '"+password+"';";
+        String consulta = "SELECT correouser, nombreuser, password, idusuario FROM usuarios WHERE correouser = '"+correo+"' and password = '"+password+"';";
         stmt = con.createStatement();
         resultado = stmt.executeQuery(consulta);
         
         if(resultado.next()){
             HttpSession session = request.getSession();
-            ArrayList<String> usuario = new ArrayList();
-            session.setAttribute("usuario",usuario);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            session.setAttribute("idusuario",resultado.getString("idusuario")); //GUARDAMOS EL ID DEL USUARIO EN LA VARIABLE DE SESSION
+            request.setAttribute("mensaje","Bienvenido a Fsociety "+resultado.getString("nombreuser"));
             
-            out.println("<script>alert('USUARIO Y CONTRASEÑA CORRECTA'); </script>");
+            con.close();
+            
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }else{
-            out.println("<script>alert('Usuario o contraseña incorrecta, intente de nuevo'); window.location='login.jsp'</script>");
+            con.close();
+            request.setAttribute("mensaje","Usuario o contraseña incorrecta, intente de nuevo");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 

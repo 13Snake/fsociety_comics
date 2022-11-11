@@ -61,6 +61,7 @@ public class registro extends HttpServlet {
                             consulta = "INSERT INTO usuarios (idusuario, nombreuser, apellidosuser, correouser, password, estadocuenta, telefono) VALUES (NULL, '"+nom+"', '"+apel+"', '"+correo+"', '"+pas1+"', '1', '"+numero+"');";
                             
                             if(database.actualizar(consulta)==1){
+                                con.close();
                                 out.println("<script>alert('Usuario registrado, inicie sesión por favor'); window.location='login.jsp' </script>");
                             }
                         }else{

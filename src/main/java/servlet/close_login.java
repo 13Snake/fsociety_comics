@@ -33,7 +33,7 @@ public class close_login extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         HttpSession session = request.getSession();
-        session.removeAttribute("usuario");
+        session.removeAttribute("idusuario");
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
