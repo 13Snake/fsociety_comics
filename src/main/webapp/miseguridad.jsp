@@ -11,6 +11,10 @@
     if (session.getAttribute("idusuario") == null) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+    
+    if (request.getAttribute("mensaje") != null) {
+        out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +106,7 @@
                         <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis pedidos</h5>
-                                <!--<?php 
+                                <!--<?php
                                     include 'php/conexiondb.php';
                                     $stmt = $dbh->prepare("SELECT Fecha_inicio FROM reservaciones WHERE F_IDUsuario=:id AND CURDATE()<Fecha_inicio LIMIT 1;");
                                     $stmt -> bindParam(':id',$_SESSION['data'][1]);
@@ -155,10 +159,10 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
 
-                                        <form class="row g-3 needs-validation"  method="POST" action="modcuenta?opcion=1" novalidate> <!--USAMOS VARIABLE OPCION PARA EL PHP SIGUIENTE-->
+                                        <form class="row g-3 needs-validation"  method="POST" action="modcuenta?opcion=5" novalidate> <!--USAMOS VARIABLE OPCION PARA EL PHP SIGUIENTE-->
                                             <div class="col-md-12">
                                                 <label for="actual" class="form-label">Contraseña Actual</label>
-                                                <input type="text" class="form-control" name="actual" id="validationCustom01" required>
+                                                <input type="password" class="form-control" name="actual" id="validationCustom01" required>
                                                 <div class="invalid-feedback">
                                                     Inserte una contraseña valida
                                                 </div>
@@ -166,18 +170,20 @@
 
                                             <div class="col-md-12">
                                                 <label for="nueva" class="form-label">Nueva contraseña</label>
-                                                <input type="text" class="form-control" name="nueva" id="validationCustom02" required>
+                                                <input type="password" class="form-control" name="nueva" id="validationCustom02" required>
                                                 <div class="invalid-feedback">
                                                     Inserte una contraseña valida
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-md-12">
-                                                <label for="nueva" class="form-label">Confirmar contraseña</label>
-                                                <input type="text" class="form-control" name="nueva" id="validationCustom02" required>
+                                                <label for="confirmacion" class="form-label">Confirmar contraseña</label>
+                                                <input type="password" class="form-control" name="confirmacion" id="validationCustom02" required>
                                                 <div class="invalid-feedback">
                                                     Inserte una contraseña valida
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-12">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -208,17 +214,17 @@
                                 <div id="collapseSecond" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
 
-                                        <form class="row g-3 needs-validation"  method="POST" action="#" novalidate> <!--USAMOS VARIABLE OPCION PARA EL PHP SIGUIENTE-->
+                                        <form class="row g-3 needs-validation"  method="POST" action="modcuenta?opcion=6" novalidate> <!--USAMOS VARIABLE OPCION PARA EL PHP SIGUIENTE-->
                                             <div class="col-md-12">
-                                                <label for="actual" class="form-label">Si estas seguro, escribe; "Estoy seguro de cerrar mi cuenta"</label>
-                                                <input type="text" class="form-control" name="actual" id="validationCustom01" required>
+                                                <label for="confirmacion" class="form-label">Si estas seguro, escribe; "Estoy seguro de cerrar mi cuenta"</label>
+                                                <input type="text" class="form-control" name="confirmacion" id="validationCustom01" required>
                                                 <div class="invalid-feedback">
                                                     Inserte un dato valido
                                                 </div>
                                             </div>
                                             
                                             <div class="col-md-12">
-                                                <label class="form-label">Recuerda, siempre puedes volver a revivir la historia, lamentamos tu partida</label>
+                                                <label class="form-label text-danger">Recuerda, siempre puedes volver a revivir la historia, lamentamos tu partida</label>
                                             </div>
 
                                             <div class="col-12">

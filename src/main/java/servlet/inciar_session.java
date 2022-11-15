@@ -54,17 +54,20 @@ public class inciar_session extends HttpServlet {
         
         Connection con = database.conectar_db();
         
-        String consulta = "SELECT correouser, nombreuser, password, idusuario FROM usuarios WHERE correouser = '"+correo+"' and password = '"+password+"';";
+        String consulta = "SELECT correouser, nombreuser, password, idusuario, estadocuenta FROM usuarios WHERE correouser = '"+correo+"' and password = '"+password+"';";
         stmt = con.createStatement();
         resultado = stmt.executeQuery(consulta);
         
         if(resultado.next()){
             HttpSession session = request.getSession();
             session.setAttribute("idusuario",resultado.getString("idusuario")); //GUARDAMOS EL ID DEL USUARIO EN LA VARIABLE DE SESSION
-            request.setAttribute("mensaje","Bienvenido a Fsociety "+resultado.getString("nombreuser"));
             
+            if(resultado.getInt("estadocuenta") == 1){
+                request.setAttribute("mensaje","Bienvenido a Fsociety "+resultado.getString("nombreuser"));
+            }else if(resultado.getInt("estadocuenta") == 0){
+                request.setAttribute("mensaje","Es un gusto verte de vuelta en Fsociety, "+resultado.getString("nombreuser") + ", gracias por reactivar tu cuenta");
+            }
             con.close();
-            
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }else{
             con.close();

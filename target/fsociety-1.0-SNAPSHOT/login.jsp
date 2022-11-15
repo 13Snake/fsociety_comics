@@ -54,7 +54,15 @@
                         <a class="nav-link" href="#">Lista de deseos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Carrito</a>
+                        <a class="nav-link" href="#">
+                            <button type="button" class="btn btn-primary position-relative">
+                                Carrito 
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    99+
+                                <span class="visually-hidden">unread messages</span>
+                                </span>
+                            </button>
+                        </a>
                     </li>
                         <%
                             session = request.getSession();

@@ -50,6 +50,7 @@ public class editarcuenta extends HttpServlet {
         
         String opcion = request.getParameter("opcion"); //OPCION QUE SE MANDA POR METODO GET PARA ENTRAR AL SWITCH
         String consulta = "";
+        
         switch(opcion){
             case "1":
                 //CASO PARA EDITAR NOMBRES DEL USUARIO
@@ -112,6 +113,55 @@ public class editarcuenta extends HttpServlet {
                 if(conection_db.actualizar(consulta) == 1){
                     request.setAttribute("mensaje","Tu direccion ha sido editada");
                     request.getRequestDispatcher("micuenta.jsp").forward(request, response);
+                }
+                break;
+            case "5":
+                //CASO PARA EDITAR LA CONTRASEÑA DE LA CUENTA
+                String actual = request.getParameter("actual");
+                String nueva = request.getParameter("nueva");
+                String confirmacion = request.getParameter("confirmacion");
+                
+                consulta = "SELECT idusuario, password FROM usuarios WHERE password = '"+actual+"' AND idusuario = "+iduser+";";
+                
+                stmt = con.createStatement();
+                resultado = stmt.executeQuery(consulta);
+                
+                if(resultado.next()){ //REVISAMOS SI LA CONTRASEÑA ACTUAL ES LA CORRECTA
+                    if(actual.equals(nueva)){
+                        if(nueva.equals(confirmacion)){
+                            consulta = "UPDATE `usuarios` SET `password`='"+nueva+"' WHERE idusuario = "+iduser+";";
+                            if(conection_db.actualizar(consulta) == 1){
+                                request.setAttribute("mensaje","Tu contraseña ha sido cambiada, inicia sesión de nuevo por favor");
+                                request.getRequestDispatcher("close_login").forward(request, response);
+                            }else{
+                                request.setAttribute("mensaje","ERROR AL CAMBIAR TU CONTRASEÑA INTENTA DE NUEVO");
+                                request.getRequestDispatcher("miseguridad.jsp").forward(request, response);
+                            }
+                        }else{
+                            request.setAttribute("mensaje","Las nuevas contraseñas no coinciden, intente de nuevo");
+                            request.getRequestDispatcher("miseguridad.jsp").forward(request, response); 
+                        }
+                    }else{
+                        request.setAttribute("mensaje","La contraseña actual no puede ser igual a la nueva contraseña, intente de nuevo");
+                        request.getRequestDispatcher("miseguridad.jsp").forward(request, response); 
+                    }
+                }else{
+                    request.setAttribute("mensaje","Contraseña incorrecta, intente de nuevo");
+                    request.getRequestDispatcher("miseguridad.jsp").forward(request, response);
+                }
+                break;
+            case "6":
+                String texto = request.getParameter("confirmacion");
+                String texto_2 = "Estoy seguro de cerrar mi cuenta";
+                if(texto.equals(texto_2)){
+                    consulta = "UPDATE `usuarios` SET `estadocuenta`= 0 WHERE idusuario = "+iduser+";";
+                    if(conection_db.actualizar(consulta) == 1){
+                        request.setAttribute("mensaje","Lamentamos tu partida, recuerda que puedes reactivar tu cuenta, vuelve pronto");
+                        request.getRequestDispatcher("close_login").forward(request, response);
+                    }
+                }else{
+                    request.setAttribute("mensaje","Inserte el texto correctamente, intente de nuevo");
+                    request.getRequestDispatcher("miseguridad.jsp").forward(request, response);
                 }
                 break;
             default:
