@@ -35,44 +35,41 @@
         <div class="container-fluid">
             <div class="col-1">
                 <a class="navbar-brand" href="index.jsp">
-                    <img src="assets/logo.jpg" alt="" width="90" height="50" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                    <img src="assets/logo.jpg" alt="" width="110" height="90" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                 </a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="col-6 d-flex offset-1" role="search" action="#">
+                <form class="col-7 d-flex mx-3" role="search" action="#">
                     <input class="form-control me-2" type="search" placeholder="Buscar en la tienda" aria-label="Search">
                     <button class="btn btn-warning" type="submit">Buscar</button>
                 </form>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 offset-1">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lista de deseos</a>
-                    </li>
-                    <li class="nav-item">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <a class="nav-link mx-3" href="index.jsp">
+                        <img src="assets/icons/inicio.png" alt="Inicio" width="35" height="25" class="img-fluid txt_nav d-inline-block">
+                    </a>
+                    <li class="nav-item mx-3">
                         <a class="nav-link" href="#">
-                            <button type="button" class="btn btn-primary position-relative">
-                                Carrito 
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    99+
-                                <span class="visually-hidden">unread messages</span>
-                                </span>
-                            </button>
+                            <img src="assets/icons/hvacio.png" alt="Lista deseos" width="35" height="25" class="img-fluid txt_nav d-inline-block">
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link position-relative" href="#">
+                            <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
+                            <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
                         </a>
                     </li>
                         <%
                             session = request.getSession();
-                            if(session.getAttribute("idusario") == null){
-                                out.println("<li class='nav-item'>");
-                                    out.println("<a class='nav-link' href='login.jsp'>Iniciar Sesión</a>");
+                            if(session.getAttribute("idusuario") == null){
+                                out.println("<li class='nav-item mx-3'>");
+                                    out.println("<a class='nav-link' href='login.jsp'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
                                 out.println("</li>");
                             }else{
-                                out.println("<li class='nav-item dropdown'>");
-                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'> Mi cuenta</a>");
+                                out.println("<li class='nav-item dropdown mx-3'>");
+                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
                                     out.println("<ul class='dropdown-menu'>");
                                         out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
                                         out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");

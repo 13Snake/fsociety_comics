@@ -65,7 +65,12 @@ public class inciar_session extends HttpServlet {
             if(resultado.getInt("estadocuenta") == 1){
                 request.setAttribute("mensaje","Bienvenido a Fsociety "+resultado.getString("nombreuser"));
             }else if(resultado.getInt("estadocuenta") == 0){
-                request.setAttribute("mensaje","Es un gusto verte de vuelta en Fsociety, "+resultado.getString("nombreuser") + ", gracias por reactivar tu cuenta");
+                //OBTENEMOS LA VARIABLE DE SESSION DEL USUARIO
+                String iduser = (String) session.getAttribute("idusuario");
+                consulta = "UPDATE `usuarios` SET `estadocuenta`= 1 WHERE idusuario = "+iduser+";";
+                if(conection_db.actualizar(consulta) == 1){
+                    request.setAttribute("mensaje","Es un gusto verte de vuelta en Fsociety, "+resultado.getString("nombreuser") + ", gracias por reactivar tu cuenta");
+                }
             }
             con.close();
             request.getRequestDispatcher("index.jsp").forward(request, response);

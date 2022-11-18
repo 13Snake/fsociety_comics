@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import objetos.productos;
 
 /**
  *
@@ -72,5 +73,18 @@ public class conection_db {
             
         }
         return usuario_datos;
+    }
+    
+    //METODO PARA OBTENER LA INFORMACION DE LOS PRODUCTOS EN EL INDEX
+    public static ArrayList<productos> mas_deseados(String consulta) throws SQLException, ClassNotFoundException{
+        ArrayList<productos> info  = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(consulta);
+        while(rs.next()){
+            productos prod = new productos(rs.getString("prod"), rs.getString("img"), rs.getString("name"), rs.getString("preci"), rs.getString("descrip"));
+            info.add(prod);
+        }
+        return info;
     }
 }

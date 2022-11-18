@@ -151,6 +151,7 @@ public class editarcuenta extends HttpServlet {
                 }
                 break;
             case "6":
+                //CASO PARA DAR DE BAJA LA CUENTA
                 String texto = request.getParameter("confirmacion");
                 String texto_2 = "Estoy seguro de cerrar mi cuenta";
                 if(texto.equals(texto_2)){
