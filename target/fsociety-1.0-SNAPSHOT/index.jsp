@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fsociety-Inicio</title>
+    <title>Fsociety-Inicio</title> <!--Por medio de una consulta poner el titulo del producto aqui-->
 
     <!--CSS Y JS BOOTSTRAP-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -221,7 +221,7 @@
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">                                
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" href="infoprod.jsp"><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
