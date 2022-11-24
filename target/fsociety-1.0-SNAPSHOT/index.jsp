@@ -2,8 +2,7 @@
     Document   : index
     Created on : 6 nov 2022, 18:26:34
     Author     : ksio
---%>
-
+min--%>
 <%@page import="objetos.productos"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="bd.conection_db"%>
@@ -24,6 +23,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″ />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fsociety-Inicio</title> <!--Por medio de una consulta poner el titulo del producto aqui-->
@@ -34,7 +34,7 @@
 </head>
 <body>
     
-    <!--INICIA BARRA DE NAVEGACIÓN-->
+    <!--INICIA BARRA DE NAVEGACI�N-->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
         <div class="container-fluid">
             <div class="col-1">
@@ -75,7 +75,7 @@
                                 out.println("<li class='nav-item dropdown mx-3'>");
                                     out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
                                     out.println("<ul class='dropdown-menu'>");
-                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
+                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi informaci�n</a></li>");
                                         out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
                                         out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
                                         out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
@@ -105,7 +105,7 @@
                                     <li><a class="dropdown-item" href="#">Autor1</a></li>
                                     <li><a class="dropdown-item" href="#">Autor2</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Ver más</a></li>
+                                    <li><a class="dropdown-item" href="#">Ver m�s</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -120,7 +120,7 @@
                                     <li><a class="dropdown-item" href="#">Editorial1</a></li>
                                     <li><a class="dropdown-item" href="#">Editorial2</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Ver más</a></li>
+                                    <li><a class="dropdown-item" href="#">Ver m�s</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -135,7 +135,7 @@
                                     <li><a class="dropdown-item" href="#">Categoria1</a></li>
                                     <li><a class="dropdown-item" href="#">Categoria2</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Ver más</a></li>
+                                    <li><a class="dropdown-item" href="#">Ver m�s</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -150,7 +150,7 @@
                                     <li><a class="dropdown-item" href="#">Coleccion1</a></li>
                                     <li><a class="dropdown-item" href="#">Coleccion2</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Ver más</a></li>
+                                    <li><a class="dropdown-item" href="#">Ver m�s</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -159,7 +159,7 @@
             </div>
         </div>
     </nav>
-    <!--TERMINA BARRA DE NAVEGACIÓN-->
+    <!--TERMINA BARRA DE NAVEGACI�N-->
     
     <!--CARRUSEL DE IMAGENES-->
     <div class="containter my-1 mx-4">
@@ -200,7 +200,7 @@
         info = conection_db.mas_deseados(consulta);
         prod = info.get(0);
     %>
-    <!--INICIA PRODUCTOS MÁS VENDIDOS-->
+    <!--INICIA PRODUCTOS M�S VENDIDOS-->
     <div class="containter my-3 mx-1">
         <div class="row my-4 text-end">
             <div class="col-5">
@@ -213,7 +213,7 @@
         </div>
     </div>
 
-    <!--CARRUSEL DE PRODUCTOS MÁS VENDIDOS-->
+    <!--CARRUSEL DE PRODUCTOS M�S VENDIDOS-->
         <div class="containter-fuid">
             <div id="carrusel_destacados" class="carousel slide">
                 <div class="carousel-inner row-cols-2 row-cols-md-4 g-4">
@@ -221,11 +221,11 @@
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">                                
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" href="infoprod.jsp"><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -239,7 +239,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -290,7 +290,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -316,7 +316,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -348,7 +348,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -374,7 +374,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -399,7 +399,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -425,7 +425,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -456,7 +456,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -482,7 +482,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -507,7 +507,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -526,7 +526,7 @@
                 </button>
             </div>
         </div>
-        <!--TERMINA PRODUCTOS MÁS VENDIDOS-->
+        <!--TERMINA PRODUCTOS M�S VENDIDOS-->
     
         <!-- INICIA BANNER DE ARTICULO DESTACABLES EN LA TIENDA-->
         <div class="containter-fuid py-5 my-4 bg-danger p-2 text-dark bg-opacity-75">
@@ -560,7 +560,7 @@
                                         <div class="mx-3 card-footer d-flex justify-content-between">
                                             <span>$19.00</span>
                                             <a type="button" href="#" class="btn btn-warning">
-                                                <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block">
                                             </a>                                                
                                         </div>
                                     </div>
@@ -599,7 +599,7 @@
                                         <div class="mx-3 card-footer d-flex justify-content-between">
                                             <span>$19.00</span>
                                             <a type="button" href="#" class="btn btn-warning">
-                                                <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                             </a>                                                
                                         </div>
                                     </div>
@@ -618,7 +618,7 @@
             <div class="col-5">
                 <ul class="list-group">
                     <li class="list-group-item active" aria-current="true">
-                        <h2>Más deseados por los usuarios</h2>
+                        <h2>M�s deseados por los usuarios</h2>
                     </li>
                 </ul>        
             </div>
@@ -654,7 +654,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -680,7 +680,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -705,7 +705,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -731,7 +731,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -763,7 +763,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -789,7 +789,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -814,7 +814,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -840,7 +840,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -872,7 +872,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -898,7 +898,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -923,7 +923,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -976,7 +976,7 @@
                                     <div class="mx-3 card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>                                                
                                     </div>
                                 </div>
@@ -1015,7 +1015,7 @@
                                     <div class="mx-3 card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>                                                
                                     </div>
                                 </div>
@@ -1070,7 +1070,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1096,7 +1096,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1121,7 +1121,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -1147,7 +1147,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -1178,7 +1178,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1204,7 +1204,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1229,7 +1229,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -1255,7 +1255,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -1286,7 +1286,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1312,7 +1312,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1337,7 +1337,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -1400,7 +1400,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1425,7 +1425,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1449,7 +1449,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span>$19.00</span>
                                     </div>
@@ -1474,7 +1474,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span>$19.00</span>
                                     </div>
@@ -1505,7 +1505,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1530,7 +1530,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1554,7 +1554,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span>$19.00</span>
                                     </div>
@@ -1579,7 +1579,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1621,7 +1621,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1646,7 +1646,7 @@
                                     <div class="card-footer d-flex justify-content-between">
                                         <span>$19.00</span>
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
                                 </div>
@@ -1670,7 +1670,7 @@
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span>$19.00</span>
                                     </div>

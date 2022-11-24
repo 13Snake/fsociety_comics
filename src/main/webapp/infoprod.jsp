@@ -4,7 +4,7 @@
     Author     : ksio
 --%>
 
-<%@page import="objetos.productos"%>
+<%@page import="objetos.productoinfo"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="bd.conection_db"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,20 +17,28 @@
     }
 
     String consulta;
-    ArrayList<productos> info = new ArrayList();
-    productos prod;
+    ArrayList<productoinfo> info = new ArrayList();
+    productoinfo prod;
+    
+    String idbusqueda = request.getParameter("id");
+    consulta = "SELECT idproducto as id, nombreproducto as nombre, descripcionprod as descrip, precio, unidades, imagen as img, autores.autor as autor, aniopublicacion as anio, mespublicacion as mes, numeropaginas as paginas, editoriales.editorial as ed, colecciones.coleccion as colec, volumen FROM productos INNER JOIN autores ON productos.autores_idautor = autores.idautor INNER JOIN editoriales ON productos.editoriales_ideditorial = editoriales.ideditorial INNER JOIN colecciones ON productos.colecciones_idcoleccion = colecciones.idcoleccion WHERE productos.idproducto = "+idbusqueda+";";
+    info = conection_db.informacionprod(consulta);
+    if(info.size() == 0){
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+    prod = info.get(0);
 %>
-
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nombre producto</title>
+        <title>Fsociety - <% out.println(prod.getNombre()); %></title>
 
         <!--CSS Y JS BOOTSTRAP-->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="scrips/bootstrap.bundle.min.js"></script>
+        <script src="scrips/main.css"></script>
     </head>
     <body>
 
@@ -171,28 +179,28 @@
                     <div class="list-group">
                         <li class="list-group-item bg-light" aria-current="true">
                             <div class="d-flex w-100 justify-content-start">
-                                <h5 class="mb-1">One Piece</h5><br>
+                                <h5 class="mb-1"><% out.println(prod.getNombre()); %></h5><br>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Sinopsis:</h5>
                             </div>
-                            <div class="d-flex w-100 justify-content-start">
-                                <p>Descripción</p>
+                            <div class="d-flex w-100 justify-content-start txt_just">
+                                <p><% out.println(prod.getDescrip()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <p>$ 00.00</p>
-                                <p>Unidades disponibles: 10</p>
+                                <p>$ <% out.println(""+prod.getPrecio()); %></p>
+                                <p>Unidades disponibles: <% out.println(""+prod.getUnidades()); %></p>
                             </div>
                         </li>
                         <!--COLOCAR SI HAY UNIDADES O NO, SINO NO MOSTRAR ESTE FOMRULARIO Y PONER UN AVISO DE QUE NO HAY-->
                         <li class="list-group-item bg-light" aria-current="true">
                             <form class="row g-3 needs-validation px-5 justify-content-evenly"  method="POST" action="#" novalidate>
                                 <div class="col-6 align-self-center>"> <!--UNIDADES-->
-                                    <input type="number" max="9999999999" min="1" value="1" class="form-control" name="unidades" id="num" required> <!--OBTENER NUMERO DE UNIDADES Y COLOCARLO EN EN EL MAX-->
+                                    <input type="number" <% out.println("max='"+prod.getUnidades()+"'"); %> min="1" value="1" class="form-control" name="unidades" id="num" required> <!--OBTENER NUMERO DE UNIDADES Y COLOCARLO EN EN EL MAX-->
                                     <div class="invalid-feedback">
                                         Inserte un numero valido
                                     </div>
@@ -227,7 +235,7 @@
                                 <h6 class="mb-1">Autor:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>Autor 1</p>
+                                <p><% out.println(prod.getAutor()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -235,7 +243,7 @@
                                 <h6 class="mb-1">Año de publicación:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>AÑO</p>
+                                <p><% out.println(prod.getAño()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -243,7 +251,7 @@
                                 <h6 class="mb-1">Mes:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>MES</p>
+                                <p><% out.println(prod.getMes()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -251,7 +259,7 @@
                                 <h6 class="mb-1">Numero de paginas:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>PAGINAS</p>
+                                <p><% out.println(prod.getPaginas()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -259,7 +267,7 @@
                                 <h6 class="mb-1">Editorial:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>EDITORIAL</p>
+                                <p><% out.println(prod.getEd()); %></p>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -267,7 +275,7 @@
                                 <h6 class="mb-1">Colección:</h6>
                             </div>
                             <div class="d-flex w-100 justify-content-start">
-                                <p>COLECCIÓN</p>
+                                <p><% out.println(prod.getColec()); %></p>
                             </div>
                         </li>
                     </div>

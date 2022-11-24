@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import objetos.productoinfo;
 import objetos.productos;
 
 /**
@@ -85,6 +86,22 @@ public class conection_db {
             productos prod = new productos(rs.getString("prod"), rs.getString("img"), rs.getString("name"), rs.getString("preci"), rs.getString("descrip"));
             info.add(prod);
         }
+        con.close();
         return info;
+    }
+    
+    public static ArrayList<productoinfo> informacionprod(String consulta) throws SQLException, ClassNotFoundException{
+        ArrayList<productoinfo> prod_info = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(consulta);
+        if(rs.next()){
+            productoinfo info = new productoinfo(rs.getString("id"),rs.getString("nombre"),rs.getString("descrip"),
+                    rs.getFloat("precio"),rs.getInt("unidades"), rs.getString("img"), rs.getString("autor"),rs.getString("anio"),
+                    rs.getString("mes"),rs.getString("paginas"),rs.getString("ed"),rs.getString("colec"),rs.getString("volumen"));
+            prod_info.add(info);
+        }
+        con.close();
+        return prod_info;
     }
 }
