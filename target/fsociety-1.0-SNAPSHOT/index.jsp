@@ -60,7 +60,7 @@ min--%>
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link position-relative" href="#">
+                        <a class="nav-link position-relative" href="carrito.jsp">
                             <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
                             <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
                         </a>
@@ -150,7 +150,7 @@ min--%>
                                     <li><a class="dropdown-item" href="#">Coleccion1</a></li>
                                     <li><a class="dropdown-item" href="#">Coleccion2</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Ver m�s</a></li>
+                                    <li><a class="dropdown-item" href="#">Ver más</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -195,7 +195,7 @@ min--%>
     <!--TERMINA CARRUSEL DE IMAGENES-->
     
     <%
-        consulta = "SELECT productos_idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, SUM(ventas.unidades) as total FROM ventas INNER JOIN productos ON ventas.productos_idproducto = productos.idproducto GROUP BY productos_idproducto ORDER BY SUM(ventas.unidades) DESC LIMIT 11;";
+        consulta = "SELECT productos_idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, SUM(ventas.unidades) as total, productos.unidades FROM ventas INNER JOIN productos ON ventas.productos_idproducto = productos.idproducto WHERE productos.unidades != 0 GROUP BY productos_idproducto ORDER BY SUM(ventas.unidades) DESC LIMIT 11;";
         info.clear();
         info = conection_db.mas_deseados(consulta);
         prod = info.get(0);
@@ -238,7 +238,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -247,11 +247,11 @@ min--%>
                             <% prod = info.get(1); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -264,7 +264,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -273,11 +273,11 @@ min--%>
                             <% prod = info.get(2); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -289,8 +289,8 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
+                                            <img src="assets/icons/carro.png" alt="Añadir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
                                     </div>
@@ -299,11 +299,11 @@ min--%>
                             <% prod = info.get(3); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -315,7 +315,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -330,11 +330,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -347,7 +347,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -356,11 +356,11 @@ min--%>
                             <% prod = info.get(5); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -373,7 +373,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -382,11 +382,11 @@ min--%>
                             <% prod = info.get(6); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -398,7 +398,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -408,11 +408,11 @@ min--%>
                             <% prod = info.get(7); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -424,7 +424,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -438,11 +438,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -455,7 +455,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -464,11 +464,11 @@ min--%>
                             <% prod = info.get(9); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -481,7 +481,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -490,11 +490,11 @@ min--%>
                             <% prod = info.get(10); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -506,7 +506,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -618,14 +618,14 @@ min--%>
             <div class="col-5">
                 <ul class="list-group">
                     <li class="list-group-item active" aria-current="true">
-                        <h2>M�s deseados por los usuarios</h2>
+                        <h2>Más deseados por los usuarios</h2>
                     </li>
                 </ul>        
             </div>
         </div>
         <%
             info.clear();
-            consulta = "SELECT productos_idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, COUNT(productos_idproducto) AS num_selec FROM listadeseos INNER JOIN productos ON listadeseos.productos_idproducto = productos.idproducto GROUP BY listadeseos.productos_idproducto ORDER BY COUNT(listadeseos.usuarios_idusuario) DESC LIMIT 11;";
+            consulta = "SELECT productos_idproducto as prod, productos.unidades as unidades, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, COUNT(productos_idproducto) AS num_selec FROM listadeseos INNER JOIN productos ON listadeseos.productos_idproducto = productos.idproducto WHERE unidades != 0 GROUP BY listadeseos.productos_idproducto ORDER BY COUNT(listadeseos.usuarios_idusuario) DESC LIMIT 11;";
             info = conection_db.mas_deseados(consulta);
             prod = info.get(0);
         %>
@@ -636,11 +636,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -653,7 +653,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -662,11 +662,11 @@ min--%>
                             <% prod = info.get(1);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -679,7 +679,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -688,11 +688,11 @@ min--%>
                             <% prod = info.get(2); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -704,7 +704,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -714,11 +714,11 @@ min--%>
                             <% prod = info.get(3); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_5.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -730,7 +730,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -745,11 +745,11 @@ min--%>
                             <% prod = info.get(4); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -762,7 +762,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -771,11 +771,11 @@ min--%>
                             <% prod = info.get(5); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -788,7 +788,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -797,11 +797,11 @@ min--%>
                             <% prod = info.get(6); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -813,7 +813,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -823,11 +823,11 @@ min--%>
                             <% prod = info.get(7); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -839,7 +839,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -854,11 +854,11 @@ min--%>
                             <% prod = info.get(8); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -871,7 +871,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -880,11 +880,11 @@ min--%>
                             <% prod = info.get(9); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -897,7 +897,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -906,11 +906,11 @@ min--%>
                             <% prod = info.get(10); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -922,7 +922,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -1041,7 +1041,8 @@ min--%>
         </div>
         <%
             info.clear();
-            consulta = "SELECT idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, TRUNCATE(SUM(comentarios.calificacion) / COUNT(comentarios.comentario),2) as promedio FROM productos INNER JOIN comentarios ON comentarios.productos_idproducto = productos.idproducto WHERE productos.categorias_idcategorias = 5 GROUP BY productos_idproducto ORDER BY COUNT(comentarios.comentario) DESC LIMIT 11;";
+            //colocar condicion que no muestre mangas con stock igual a cero
+            consulta = "SELECT idproducto as prod, productos.unidades, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, TRUNCATE(SUM(comentarios.calificacion) / COUNT(comentarios.comentario),2) as promedio FROM productos INNER JOIN comentarios ON comentarios.productos_idproducto = productos.idproducto WHERE productos.categorias_idcategorias = 5 GROUP BY productos_idproducto ORDER BY COUNT(comentarios.comentario) DESC LIMIT 11;";
             info = conection_db.mas_deseados(consulta);
             prod = info.get(0);
         %>
@@ -1052,11 +1053,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1069,7 +1070,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1078,11 +1079,11 @@ min--%>
                             <% prod = info.get(1);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1095,7 +1096,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1104,11 +1105,11 @@ min--%>
                             <% prod = info.get(2);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1120,7 +1121,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -1130,11 +1131,11 @@ min--%>
                             <% prod = info.get(3);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1146,7 +1147,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -1160,11 +1161,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1177,7 +1178,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1186,11 +1187,11 @@ min--%>
                             <% prod = info.get(5);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1203,7 +1204,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1212,11 +1213,11 @@ min--%>
                             <% prod = info.get(6);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1228,7 +1229,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -1238,11 +1239,11 @@ min--%>
                             <% prod = info.get(7);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1254,7 +1255,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
@@ -1268,11 +1269,11 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1285,7 +1286,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1294,11 +1295,11 @@ min--%>
                             <% prod = info.get(9);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1311,7 +1312,7 @@ min--%>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                     </div>
@@ -1320,11 +1321,11 @@ min--%>
                             <% prod = info.get(10);%>      
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <strong><span class="card-title"><% out.println(prod.getName()); %></span></strong>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><strong><span class="card-title"><% out.println(prod.getName()); %></span></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
@@ -1336,7 +1337,7 @@ min--%>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
+                                        <a type="button" <% out.println("href='savecar?id="+prod.getIdproducto()+"&opt=1'"); %> class="btn btn-warning">
                                             <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                         </a>
                                         <span><% out.println("$ "+prod.getPrecio()); %></span>

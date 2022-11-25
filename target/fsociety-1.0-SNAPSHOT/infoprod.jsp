@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link position-relative" href="#">
+                            <a class="nav-link position-relative" href="carrito.jsp">
                                 <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
                                 <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
                             </a>
@@ -177,7 +177,7 @@
 
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 reg-color">
                     <div class="list-group">
-                        <li class="list-group-item bg-light" aria-current="true">
+                        <li class="list-group-item bg-light" aria-current="true" >
                             <div class="d-flex w-100 justify-content-start">
                                 <h5 class="mb-1"><% out.println(prod.getNombre()); %></h5><br>
                             </div>
@@ -198,22 +198,34 @@
                         </li>
                         <!--COLOCAR SI HAY UNIDADES O NO, SINO NO MOSTRAR ESTE FOMRULARIO Y PONER UN AVISO DE QUE NO HAY-->
                         <li class="list-group-item bg-light" aria-current="true">
-                            <form class="row g-3 needs-validation px-5 justify-content-evenly"  method="POST" action="#" novalidate>
-                                <div class="col-6 align-self-center>"> <!--UNIDADES-->
-                                    <input type="number" <% out.println("max='"+prod.getUnidades()+"'"); %> min="1" value="1" class="form-control" name="unidades" id="num" required> <!--OBTENER NUMERO DE UNIDADES Y COLOCARLO EN EN EL MAX-->
-                                    <div class="invalid-feedback">
-                                        Inserte un numero valido
-                                    </div>
-                                </div>
-                                <div class="col-6 align-self-center>"> <!-BOTON-->
-                                    <div class="col-12 d-flex justify-content-end py-3">
-                                        <button class="btn btn-warning" type="submit">
-                                            <img class="p-1" src="assets/icons/carro.png" alt="Añadir al carrito" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                            Agregar al carrito
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            <% 
+                                if(prod.getUnidades() > 0){
+                                    out.println("<form class='row g-3 needs-validation px-5 justify-content-evenly'  method='POST' action='#' novalidate>");
+                                    out.println("<div class='col-6 align-self-center'> <!--UNIDADES-->");
+                                    out.println("<input type='number' max='" + prod.getUnidades() + "' min='1' value='1' class='form-control' name='unidades' id='num' required> ");
+                                    out.println("<div class='invalid-feedback'>");
+                                    out.println("Solo hay "+prod.getUnidades()+ "unidades disponibles");
+                                    out.println("</div>");
+                                    out.println("<div class='valid-feedback'>");
+                                    out.println("¡Continuemos con la compra!");
+                                    out.println("</div>");
+                                    out.println("</div>");
+                                    out.println("<div class='col-6 align-self-center'>");
+                                    out.println("<div class='col-12 d-flex justify-content-end py-3'>");
+                                    out.println("<button class='btn btn-warning' type='submit'>");
+                                    out.println("<img class='p-1' src='assets/icons/carro.png' alt='Añadir al carrito' width='30' height='30' class='img-fluid txt_nav d-inline-block'>");
+                                    out.println("Agregar al carrito");
+                                    out.println("</button>");
+                                    out.println("</div>");
+                                    out.println("</div>");
+                                    out.println("</form>");
+                                }else{
+                                    out.println("<div class='d-flex justify-content-center'>");
+                                    out.println("<a class='btn btn-danger' role='button'>Unidades terminadas, estamos trabajando para rellenar stock, disculpe las molestias</a>");
+                                    out.println("</div>");
+                                }
+                            %>
+                            
                         </li>
                     </div>
                 </div>
@@ -225,9 +237,9 @@
             <div class="row d-flex justify-content-evenly">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 reg-color">
                     <div class="list-group bg-light">
-                        <li class="list-group-item bg-success" aria-current="true">
+                        <li class="list-group-item" style="background-color: #e3f2fd;" aria-current="true">
                             <div class="d-flex w-100 justify-content-center">
-                                <h5 class="mb-1">Datalles del producto</h5><br>
+                                <h5 class="mb-1">Detalles del producto</h5><br>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -356,3 +368,25 @@
                 </div>
             </div>
         </div>
+        <script>
+            //VERIFICAR SI EL FOMRULARIO ES VALIDO O NO
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+                })
+            })()
+        </script>
+    </body>
+</html>

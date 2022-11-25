@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import objetos.infocarrito;
 import objetos.productoinfo;
 import objetos.productos;
 
@@ -103,5 +104,18 @@ public class conection_db {
         }
         con.close();
         return prod_info;
+    }
+    
+    //REVISAR SI EXISTE UN PRODUCTO EN LA BASE DE DATOS O NO Y SI EL STOCK ES SUFICIENTE, PARA AGREGAR AL CARRITO
+    public static infocarrito existencia_producto(String consulta)throws SQLException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(consulta);
+        if(rs.next()){
+            infocarrito obj_carrito = new infocarrito(rs.getString("id"), rs.getString("nombre"),rs.getString("img"),rs.getInt("uni"),1,rs.getFloat("precio"),rs.getFloat("precio"));
+            return obj_carrito;
+        }else{
+            return null;
+        }
     }
 }

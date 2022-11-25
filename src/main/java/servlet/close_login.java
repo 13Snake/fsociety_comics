@@ -34,6 +34,7 @@ public class close_login extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.removeAttribute("idusuario");
+        session.removeAttribute("carrito");
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
