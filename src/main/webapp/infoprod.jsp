@@ -14,6 +14,8 @@
 <%
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+        request.removeAttribute("mensaje");
+        out.println("<script>window.location='login.jsp'</script>");
     }
 
     String consulta;
@@ -200,11 +202,11 @@
                         <li class="list-group-item bg-light" aria-current="true">
                             <% 
                                 if(prod.getUnidades() > 0){
-                                    out.println("<form class='row g-3 needs-validation px-5 justify-content-evenly'  method='POST' action='#' novalidate>");
+                                    out.println("<form class='row g-3 needs-validation px-5 justify-content-evenly'  method='POST' action='carsave?id="+prod.getId()+"&opt=2'"+" novalidate>");
                                     out.println("<div class='col-6 align-self-center'> <!--UNIDADES-->");
-                                    out.println("<input type='number' max='" + prod.getUnidades() + "' min='1' value='1' class='form-control' name='unidades' id='num' required> ");
+                                    out.println("<input type='number' max='" + prod.getUnidades() + "' min='1' value='1' class='form-control' name='cantidad' id='num' required> ");
                                     out.println("<div class='invalid-feedback'>");
-                                    out.println("Solo hay "+prod.getUnidades()+ "unidades disponibles");
+                                    out.println("Solo hay "+prod.getUnidades()+ " unidades disponibles");
                                     out.println("</div>");
                                     out.println("<div class='valid-feedback'>");
                                     out.println("¡Continuemos con la compra!");

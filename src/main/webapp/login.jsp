@@ -14,6 +14,8 @@
 
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+        request.removeAttribute("mensaje");
+        out.println("<script>window.location='login.jsp'</script>");
     }
 %>
 

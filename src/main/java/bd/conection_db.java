@@ -107,14 +107,16 @@ public class conection_db {
     }
     
     //REVISAR SI EXISTE UN PRODUCTO EN LA BASE DE DATOS O NO Y SI EL STOCK ES SUFICIENTE, PARA AGREGAR AL CARRITO
-    public static infocarrito existencia_producto(String consulta)throws SQLException, ClassNotFoundException{
+    public static infocarrito existencia_producto(String consulta, int existencia)throws SQLException, ClassNotFoundException{
         Connection con = conectar_db();
         stmt = con.createStatement();
         rs = stmt.executeQuery(consulta);
         if(rs.next()){
-            infocarrito obj_carrito = new infocarrito(rs.getString("id"), rs.getString("nombre"),rs.getString("img"),rs.getInt("uni"),1,rs.getFloat("precio"),rs.getFloat("precio"));
+            infocarrito obj_carrito = new infocarrito(rs.getString("id"), rs.getString("nombre"),rs.getString("img"),rs.getInt("uni"),existencia,rs.getFloat("precio"),rs.getFloat("precio"));
+            con.close();
             return obj_carrito;
         }else{
+            con.close();
             return null;
         }
     }

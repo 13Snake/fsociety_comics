@@ -1,6 +1,0 @@
-objetos\productos.class
-bd\conection_db.class
-servlet\close_login.class
-servlet\registro.class
-servlet\inciar_session.class
-servlet\editarcuenta.class
