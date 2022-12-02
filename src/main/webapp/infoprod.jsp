@@ -79,7 +79,7 @@
                             session = request.getSession();
                             if(session.getAttribute("idusuario") == null){
                                 out.println("<li class='nav-item mx-3'>");
-                                    out.println("<a class='nav-link' href='login.jsp'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
+                                    out.println("<a class='nav-link' href='login.jsp?opt=0'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
                                 out.println("</li>");
                             }else{
                                 out.println("<li class='nav-item dropdown mx-3'>");

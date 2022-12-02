@@ -8,6 +8,7 @@
 
 <%
     session = request.getSession();
+    String opt = request.getParameter("opt");
     if(session.getAttribute("idusuario") != null){
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
@@ -15,7 +16,7 @@
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
         request.removeAttribute("mensaje");
-        out.println("<script>window.location='login.jsp'</script>");
+        out.println("<script>window.location='login.jsp?opt="+opt+"'</script>");
     }
 %>
 
@@ -58,7 +59,7 @@
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link position-relative" href="#">
+                        <a class="nav-link position-relative" href="carrito.jsp">
                             <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
                             <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
                         </a>
@@ -165,7 +166,7 @@
             <div class="col-sm-12 col-md-6 col-lg-5 col-xl-6 py-3 reg-color">
                 <h1>Registrarte</h1>
                 <h8>Es facil y rapido</h8>
-                <form class="row g-3 needs-validation my-3 px-4" method="POST" action="reg_session" novalidate>
+                <form class="row g-3 needs-validation my-3 px-4" method="POST" <% out.println("action='reg_session?opt="+opt+"'"); %> novalidate>
                     <div class="col-md-6"> <!--NOMBRE USUARIO-->
                         <label for="nombre" class="form-label">Nombre(s)</label>
                         <input type="text" class="form-control" name="nombre" id="nom" value="" required>
@@ -242,9 +243,9 @@
                     </div>
                 </form>
             </div>
-        
+                
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 py-5 reg-color offset-1 align-self-center">
-                <form class="row g-3 needs-validation px-5 "  method="POST" action="start_session" novalidate>
+                <form class="row g-3 needs-validation px-5 "  method="POST" <% out.println("action='start_session?opt="+opt+"'"); %> novalidate>
                     <h1 class="py-2">Iniciar Sesión</h1>
                     <div class="col-12 align-items-stretch align-self-center"> <!--CORREO DE INICIO DE SESION-->
                         <label for="email" class="form-label">Correo Electronico</label>

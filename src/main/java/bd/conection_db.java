@@ -91,6 +91,7 @@ public class conection_db {
         return info;
     }
     
+    //METODO PARA EXTRAER INFORMACIO DEL PRODUCTO
     public static ArrayList<productoinfo> informacionprod(String consulta) throws SQLException, ClassNotFoundException{
         ArrayList<productoinfo> prod_info = new ArrayList();
         Connection con = conectar_db();

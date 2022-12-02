@@ -34,9 +34,8 @@ public class close_login extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.removeAttribute("idusuario");
-        session.removeAttribute("carrito");
         
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

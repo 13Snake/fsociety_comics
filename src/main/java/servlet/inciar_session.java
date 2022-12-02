@@ -49,6 +49,7 @@ public class inciar_session extends HttpServlet {
         
         String correo = request.getParameter("email");
         String password = request.getParameter("pass_ini");
+        String opt = request.getParameter("opt");
         
         conection_db database = new conection_db();
         
@@ -73,11 +74,18 @@ public class inciar_session extends HttpServlet {
                 }
             }
             con.close();
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            switch(opt){
+                case "1":
+                    request.getRequestDispatcher("direccion_envio.jsp").forward(request, response);
+                    break;
+                default:
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+            }
         }else{
             con.close();
             request.setAttribute("mensaje","Usuario o contraseña incorrecta, intente de nuevo");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp?opt="+opt).forward(request, response);
         }
     }
 

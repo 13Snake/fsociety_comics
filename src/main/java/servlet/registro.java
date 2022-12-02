@@ -47,6 +47,7 @@ public class registro extends HttpServlet {
         String numero = request.getParameter("numero");
         String pas1 = request.getParameter("pass_1");
         String pas2 = request.getParameter("pass_2");
+        String opt = request.getParameter("opt");
         
             if(pas1.equals(pas2)){
                 if(numero.length() == 10){
@@ -62,19 +63,19 @@ public class registro extends HttpServlet {
                             
                             if(database.actualizar(consulta)==1){
                                 con.close();
-                                out.println("<script>alert('Usuario registrado, inicie sesión por favor'); window.location='login.jsp' </script>");
+                                out.println("<script>alert('Usuario registrado, inicie sesión por favor'); window.location='login.jsp?opt="+opt+"' </script>");
                             }
                         }else{
-                            out.println("<script>alert('El usuario ya esta registrado, inicie sesión por favor'); window.location='login.jsp' </script>");
+                            out.println("<script>alert('El usuario ya esta registrado, inicie sesión por favor'); window.location='login.jsp?opt="+opt+"' </script>");
                         }
                     }else{
-                        out.println("<script>alert('La contraseña es demasiado corta, intente de nuevo'); window.location='login.jsp' </script>");
+                        out.println("<script>alert('La contraseña es demasiado corta, intente de nuevo'); window.location='login.jsp?opt="+opt+"' </script>");
                     }
                 }else{
-                    out.println("<script>alert('El numero telefonico no es valido, intente de nuevo'); window.location='login.jsp' </script>");
+                    out.println("<script>alert('El numero telefonico no es valido, intente de nuevo'); window.location='login.jsp?opt="+opt+"' </script>");
                 }
             }else{
-                out.println("<script>alert('Las contraseñas no coinciden, intente de nuevo'); window.location='login.jsp' </script>");
+                out.println("<script>alert('Las contraseñas no coinciden, intente de nuevo'); window.location='login.jsp?opt="+opt+"' </script>");
             }
     }
 
