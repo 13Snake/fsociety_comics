@@ -196,7 +196,7 @@
                                 <div class="card-body">
                                     <strong><small class="card-title">Dirección de envio<br></small></strong>
                                     <%
-                                        out.println("<small class='card-title'>" + user_info[1] +" "+ user_info[1] +"<br> "+user_info[7]+", "+user_info[11]+", "+user_info[14]+", "+user_info[8]+",  "+user_info[10]+", "+user_info[9]+", "+user_info[6]+"<br> "+user_info[5]+"</small>");
+                                        out.println("<small class='card-title'>" + user_info[1] +" "+ user_info[1] +"<br>"+user_info[7]+", "+user_info[11]+", "+user_info[14]+", "+user_info[8]+",  "+user_info[10]+", "+user_info[9]+", "+user_info[6]+"<br> "+user_info[5]+"</small>");
                                     %>
                                 </div>
                             </div>
@@ -213,10 +213,10 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8 reg-color my-4">
-                    <form class="row g-3 needs-validation bg-light" method="POST" action="#" novalidate>
+                    <form class="row g-3 needs-validation bg-light" method="POST" action="checktarjet" novalidate>
                         <div class="col-md-12">
                             <label for="validationCustom01" class="form-label">Número de la tarjeta</label>
-                            <input type="number" max="9999999999999999" min="0" class="form-control" id="validationCustom01" name="tarjeta" value="" required>
+                            <input type="number" max="9999999999999999" min="0" placeholder="Inserta tu tarjeta de credito o debito" class="form-control" id="validationCustom01" name="tarjeta" value="" required>
                             <div class="invalid-feedback">
                                 Inserte una tarjeta valida
                             </div>
@@ -264,11 +264,11 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            ¿Estas seguro de continuar la reservacion y el pago del servicio?
+                                            ¿Estas seguro de concluir la compra?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
-                                            <button class="btn btn-success" type="submit">Confirmar</button>
+                                            <button class="btn btn-warning" type="submit">Confirmar</button>
                                         </div>
                                     </div>
                                 </div>

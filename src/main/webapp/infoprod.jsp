@@ -21,11 +21,11 @@
     String consulta;
     ArrayList<productoinfo> info = new ArrayList();
     productoinfo prod;
-    
+
     String idbusqueda = request.getParameter("id");
-    consulta = "SELECT idproducto as id, nombreproducto as nombre, descripcionprod as descrip, precio, unidades, imagen as img, autores.autor as autor, aniopublicacion as anio, mespublicacion as mes, numeropaginas as paginas, editoriales.editorial as ed, colecciones.coleccion as colec, volumen FROM productos INNER JOIN autores ON productos.autores_idautor = autores.idautor INNER JOIN editoriales ON productos.editoriales_ideditorial = editoriales.ideditorial INNER JOIN colecciones ON productos.colecciones_idcoleccion = colecciones.idcoleccion WHERE productos.idproducto = "+idbusqueda+";";
+    consulta = "SELECT idproducto as id, nombreproducto as nombre, descripcionprod as descrip, precio, unidades, imagen as img, autores.autor as autor, aniopublicacion as anio, mespublicacion as mes, numeropaginas as paginas, editoriales.editorial as ed, colecciones.coleccion as colec, volumen FROM productos INNER JOIN autores ON productos.autores_idautor = autores.idautor INNER JOIN editoriales ON productos.editoriales_ideditorial = editoriales.ideditorial INNER JOIN colecciones ON productos.colecciones_idcoleccion = colecciones.idcoleccion WHERE productos.idproducto = " + idbusqueda + ";";
     info = conection_db.informacionprod(consulta);
-    if(info.size() == 0){
+    if (info.size() == 0) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     prod = info.get(0);
@@ -41,6 +41,11 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="scrips/bootstrap.bundle.min.js"></script>
         <script src="scrips/main.css"></script>
+        <style>
+            textarea{
+                resize: none;
+            }
+        </style>
     </head>
     <body>
 
@@ -77,22 +82,22 @@
                         </li>
                         <%
                             session = request.getSession();
-                            if(session.getAttribute("idusuario") == null){
+                            if (session.getAttribute("idusuario") == null) {
                                 out.println("<li class='nav-item mx-3'>");
-                                    out.println("<a class='nav-link' href='login.jsp?opt=0'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
+                                out.println("<a class='nav-link' href='login.jsp?opt=0'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
                                 out.println("</li>");
-                            }else{
+                            } else {
                                 out.println("<li class='nav-item dropdown mx-3'>");
-                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
-                                    out.println("<ul class='dropdown-menu'>");
-                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
-                                        out.println("<li><hr class='dropdown-divider'></li>");
-                                        out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
-                                    out.println("</ul>");
+                                out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
+                                out.println("<ul class='dropdown-menu'>");
+                                out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
+                                out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
+                                out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
+                                out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
+                                out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
+                                out.println("<li><hr class='dropdown-divider'></li>");
+                                out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
+                                out.println("</ul>");
                                 out.println("</li>");
                             }
                         %>
@@ -194,19 +199,37 @@
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <p>$ <% out.println(""+prod.getPrecio()); %></p>
-                                <p>Unidades disponibles: <% out.println(""+prod.getUnidades()); %></p>
+                                <p>$ <% out.println("" + prod.getPrecio()); %></p>
+                                <p>Unidades disponibles: <% out.println("" + prod.getUnidades()); %></p>
                             </div>
+                        </li>
+                        <li class="list-group-item bg-light" aria-current="true">
+                                <%
+                                    int calificacion = conection_db.calificacion_producto(prod.getId());
+                                %>
+                                <%
+                                    if (calificacion != 0) {
+                                        out.println("<p>¡Calificación segun los usuarios!</p>");
+                                        out.println("<div class='d-flex w-100 justify-content-evenly'>");
+                                        out.println("<img src='assets/icons/c" + calificacion + ".jpg' alt='c1' width='190' class='img-fluid'>");
+                                        out.println("</div>");
+                                    } else if (calificacion == 0) {
+                                        out.println("<p>¡Aun sin calificación!</p>");
+                                        out.println("<div class='d-flex w-100 justify-content-evenly'>");
+                                        out.println("<img src='assets/icons/espada_rota.png' alt='c1' width='70' class='img-fluid'>");
+                                        out.println("</div>");
+                                    }
+                                %>
                         </li>
                         <!--COLOCAR SI HAY UNIDADES O NO, SINO NO MOSTRAR ESTE FOMRULARIO Y PONER UN AVISO DE QUE NO HAY-->
                         <li class="list-group-item bg-light" aria-current="true">
-                            <% 
-                                if(prod.getUnidades() > 0){
-                                    out.println("<form class='row g-3 needs-validation px-5 justify-content-evenly'  method='POST' action='carsave?id="+prod.getId()+"&opt=2'"+" novalidate>");
+                            <%
+                                if (prod.getUnidades() > 0) {
+                                    out.println("<form class='row g-3 needs-validation px-5 justify-content-evenly'  method='POST' action='carsave?id=" + prod.getId() + "&opt=2'" + " novalidate>");
                                     out.println("<div class='col-6 align-self-center'> <!--UNIDADES-->");
                                     out.println("<input type='number' max='" + prod.getUnidades() + "' min='1' value='1' class='form-control' name='cantidad' id='num' required> ");
                                     out.println("<div class='invalid-feedback'>");
-                                    out.println("Solo hay "+prod.getUnidades()+ " unidades disponibles");
+                                    out.println("Solo hay " + prod.getUnidades() + " unidades disponibles");
                                     out.println("</div>");
                                     out.println("<div class='valid-feedback'>");
                                     out.println("¡Continuemos con la compra!");
@@ -221,13 +244,13 @@
                                     out.println("</div>");
                                     out.println("</div>");
                                     out.println("</form>");
-                                }else{
+                                } else {
                                     out.println("<div class='d-flex justify-content-center'>");
                                     out.println("<a class='btn btn-danger' role='button'>Unidades terminadas, estamos trabajando para rellenar stock, disculpe las molestias</a>");
                                     out.println("</div>");
                                 }
                             %>
-                            
+
                         </li>
                     </div>
                 </div>
@@ -370,6 +393,112 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="containter my-3 mx-1">
+            <div class="row my-4 text-end">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item active" aria-current="true">
+                            <h3>¡Deja tu comentario sobre el producto!</h3>
+                        </li>
+                    </ul>        
+                </div>
+            </div>
+        </div>
+        <div class="container my-4">
+            <div class="row d-flex justify-content-start">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color">
+                    <form class="row g-3 needs-validation px-5 bg-light"  method="POST" action="#" <% //out.println("action='start_session?opt=" + opt + "'");%> novalidate>
+                        <div class="d-flex justify-content-end">
+                            <span class="text-muted">FECHA HORA</span>
+                        </div>
+                        <div class="col-12 align-items-stretch align-self-center"> <!--comentario-->
+                            <div class="row d-flex justify-content-start">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" name="comentario" placeholder="Deja un comentario para los demas usuarios" maxlength="150"  required  id="floatingTextarea2" style="height: 80px"></textarea>
+                                        <label for="floatingTextarea2">Tu comentario</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row d-flex justify-content-evenly">
+                                <span class="m-3">¡Califica el producto!</span>
+                                <div class="col-2 form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="c1" required>
+                                    <label class="form-check-label" for="exampleRadios1"><img src='assets/icons/c1.jpg' alt='c1' width='50' class='img-fluid'></label>
+                                </div>
+                                <div class="col-2 form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="c2" required>
+                                    <label class="form-check-label" for="exampleRadios2"><img src='assets/icons/c2.jpg' alt='c2' width="100" class='img-fluid'></label>
+                                </div>
+                                <div class="col-2 form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c3" required>
+                                    <label class="form-check-label" for="exampleRadios3"><img src='assets/icons/c3.jpg' alt='c3' width="130" class='img-fluid'></label>
+                                </div>
+                                <div class="col-3 form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="c4" required>
+                                    <label class="form-check-label" for="exampleRadios4"><img src='assets/icons/c4.jpg' alt='c4' width="160" class='img-fluid'></label>
+                                </div>
+                                <div class="col-3 form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="c5" required>
+                                    <label class="form-check-label" for="exampleRadios5"><img src='assets/icons/c5.jpg' alt='c5' width="190" class='img-fluid'></label>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Selecciona una calificación
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <span class="text-muted">¡Recuerda, el peso de tus palabras esta en la forma que las dices!</span>
+                        </div>
+                        <div class="col-4>"> <!--CONTRASEÑA INICIO-->
+                            <div class="d-flex justify-content-end py-3">
+                                <button class="btn btn-danger m-2 disabled" type="submit">Eliminar</button>
+                                <button class="btn btn-secondary m-2 disabled" type="submit">Editar</button>
+                                <button class="btn btn-success m-2" type="submit">Comentar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="containter my-3 mx-1">
+            <div class="row my-4 text-end">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item active" aria-current="true">
+                            <h3>¡Comentarios de otros usuarios!</h3>
+                        </li>
+                    </ul>        
+                </div>
+            </div>
+        </div>
+        <div class="container my-4 bg-light">
+            <div class="row d-flex justify-content-start">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color">
+                    <div class="col-12 align-items-stretch align-self-evenly"> <!--comentario-->
+                        <div class="row d-flex justify-content-start">
+                            <div class="col-9 py-4">
+                                <div class="form-floating">
+                                    <textarea class="form-control" maxlength="150" readonly id="floatingTextarea1" style="height: 80px"></textarea>
+                                    <label for="floatingTextarea1">Comentario de </label>
+                                </div>
+                            </div>
+                            <div class="col-3 d-flex align-content-center py-4">
+                                <img src='assets/icons/c5.jpg' alt='c5' height="60" width="250" class='img-fluid'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end py-1">
+                        <span class="text-muted">FECHA HORA</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
         <script>
             //VERIFICAR SI EL FOMRULARIO ES VALIDO O NO
             (() => {
@@ -380,13 +509,13 @@
 
                 // Loop over them and prevent submission
                 Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
                 })
             })()
         </script>

@@ -243,10 +243,19 @@
                     </div>
                 </form>
             </div>
-                
+            <div class="containter my-3 mx-1">
+                <div class="row my-4 text-end">
+                    <div class="col-5">
+                        <ul class="list-group">
+                            <li class="list-group-item active" aria-current="true">
+                                <h2>Productos más vendidos</h2>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 py-5 reg-color offset-1 align-self-center">
                 <form class="row g-3 needs-validation px-5 "  method="POST" <% out.println("action='start_session?opt="+opt+"'"); %> novalidate>
-                    <h1 class="py-2">Iniciar Sesión</h1>
                     <div class="col-12 align-items-stretch align-self-center"> <!--CORREO DE INICIO DE SESION-->
                         <label for="email" class="form-label">Correo Electronico</label>
                         <input type="text" class="form-control" id="corre_inicio" name="email" value="" required>

@@ -37,9 +37,6 @@ public class guardardireccion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        java.sql.Statement stmt = null;
-        java.sql.ResultSet rs = null;
-        
         conection_db database = new conection_db();
         Connection con = database.conectar_db();
         
@@ -60,29 +57,35 @@ public class guardardireccion extends HttpServlet {
         String estado = request.getParameter("estado");
         String referencia = request.getParameter("referencia");
         
-        if(numero.length()==10){
-            if(numint.length()==0){numint = "S/N";}
-            if(numext.length()==0){numext = "S/N";}
-            if(cp.length()==5){
-                if (ciudad.length() == 0) {ciudad = "Sin ciudad";}
+        if (numero.length() == 10) {
+            if (numint.length() == 0) {
+                numint = "S/N";
+            }
+            if (numext.length() == 0) {
+                numext = "S/N";
+            }
+            if (cp.length() == 5) {
+                if (ciudad.length() == 0) {
+                    ciudad = "Sin ciudad";
+                }
                 String consulta = "UPDATE usuarios SET nombreuser='" + nombre + "',apellidosuser='" + apellido + "',telefono='" + numero + "',cp='" + cp + "',calle='" + calle + "',colonia='" + colonia + "',estado='" + estado + "',municipio='" + municipio + "',ciudad='" + ciudad + "',numint='" + numint + "',numext='" + numext + "',referencia='" + referencia + "' WHERE idusuario = " + iduser + " AND estadocuenta = 1;";
                 if (conection_db.actualizar(consulta) == 1) {
                     con.close();
                     request.setAttribute("mensaje", "Tu dirección ha sido guardada");
                     request.getRequestDispatcher("pagoproducto.jsp").forward(request, response);
-                }else{
+                } else {
                     con.close();
-                    request.setAttribute("mensaje","ERROR: INTENTE DE NUEVO MÁS TARDE");
+                    request.setAttribute("mensaje", "ERROR: INTENTE DE NUEVO MÁS TARDE");
                     request.getRequestDispatcher("direccion_envio.jsp").forward(request, response);
                 }
-            }else{
+            } else {
                 con.close();
-                request.setAttribute("mensaje","Inserte un codigo postal valido");
+                request.setAttribute("mensaje", "Inserte un codigo postal valido");
                 request.getRequestDispatcher("direccion_envio.jsp").forward(request, response);
             }
-        }else{
+        } else {
             con.close();
-            request.setAttribute("mensaje","Inserte un numero telefonico valido");
+            request.setAttribute("mensaje", "Inserte un numero telefonico valido");
             request.getRequestDispatcher("direccion_envio.jsp").forward(request, response);
         }
     }

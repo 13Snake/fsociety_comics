@@ -74,6 +74,7 @@ public class conection_db {
             usuario_datos[14] = rs.getString("referencia");
             
         }
+        con.close();
         return usuario_datos;
     }
     
@@ -119,6 +120,34 @@ public class conection_db {
         }else{
             con.close();
             return null;
+        }
+    }
+    
+    //METODO PARA COMPRAR FECHA DE VENCIMIENTO DE LA TARJETA
+    public static int comprobar_vencimiento(String fecha) throws SQLException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT CURDATE() < '"+fecha+"' as resultado;");
+        if(rs.next() && rs.getString("resultado").equals("1")){
+            con.close();
+            return 1;
+        }else{
+            con.close();
+            return 0;
+        }
+    }
+    
+    public static int calificacion_producto(String id) throws SQLException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT idproducto as prod, TRUNCATE(SUM(comentarios.calificacion) / COUNT(comentarios.comentario),2) AS promedio FROM productos INNER JOIN comentarios ON comentarios.productos_idproducto = productos.idproducto WHERE productos.idproducto = "+id+";");
+        if(rs.next()){
+            double cal = rs.getDouble("promedio");
+            con.close();
+            return (int) cal;
+        }else{
+            con.close();
+            return 0;
         }
     }
 }

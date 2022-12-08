@@ -12,10 +12,11 @@
     if (session.getAttribute("idusuario") == null) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
-    if(request.getAttribute("mensaje")!=null){
-        out.println("<script>alert('"+request.getAttribute("mensaje")+"'); </script>");
+    if (request.getAttribute("mensaje") != null) {
+        out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+        request.removeAttribute("mensaje");
+        out.println("<script>window.location='micuenta.jsp'</script>");
     }
-    
     conection_db database = new conection_db();
     String[] user_info = new String[15];
     user_info = database.datos_usuario(session.getAttribute("idusuario").toString()); //OBTENIENDO DATOS DEL USUARIO 
