@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import objetos.info_comentarios;
 import objetos.infocarrito;
 import objetos.productoinfo;
 import objetos.productos;
@@ -18,7 +19,7 @@ import objetos.productos;
  * @author ksio
  */
 public class conection_db {
-    private static String url = "jdbc:mysql://localhost:3306/dbfsociety"; //donde se encuentra la base de datos
+    private static String url = "jdbc:mysql://localhost:3306/dbfsociety?characterEncoding=utf-8"; //donde se encuentra la base de datos
     private static String usuario = "root";
     private static String pass = "";
     
@@ -53,7 +54,7 @@ public class conection_db {
     
     //Metodo para poder obtener los datos del usuario
     public static String[] datos_usuario(String idusuario) throws SQLException, ClassNotFoundException, ClassNotFoundException{
-        String[] usuario_datos = usuario_datos = new String[15];
+        String[] usuario_datos = new String[15];
         Connection con = conectar_db();
         stmt = con.createStatement();
         rs = stmt.executeQuery("SELECT * FROM usuarios WHERE idusuario = '"+idusuario+"';");
@@ -137,6 +138,7 @@ public class conection_db {
         }
     }
     
+    //CALCULAR LA CALIFICACION DEL PRODUCTO Y RETORNA EL NUMERO DE ESPADAS
     public static int calificacion_producto(String id) throws SQLException, ClassNotFoundException{
         Connection con = conectar_db();
         stmt = con.createStatement();
@@ -145,6 +147,48 @@ public class conection_db {
             double cal = rs.getDouble("promedio");
             con.close();
             return (int) cal;
+        }else{
+            con.close();
+            return 0;
+        }
+    }
+    
+    //IDENTIFICAR SI EL USUARIO YA GENERO UN COMENTARIO EN EL PRODUCTO
+    public static info_comentarios check_comentario(String idusuario, String idprod) throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT idcomentario, usuarios_idusuario, productos_idproducto,comentario, fechacomentario, calificacion, fechacomentario, horacomentario, SUBSTRING_INDEX(usuarios.correouser,'@',1) AS name_u FROM comentarios INNER JOIN usuarios ON comentarios.usuarios_idusuario = usuarios.idusuario where comentarios.productos_idproducto = "+idprod+" AND comentarios.usuarios_idusuario = "+idusuario+";");
+        if(rs.next()){
+            info_comentarios coments = new info_comentarios(rs.getString("idcomentario"),rs.getString("usuarios_idusuario"),rs.getString("productos_idproducto"),rs.getString("comentario"),rs.getString("calificacion"),rs.getString("fechacomentario"),rs.getString("horacomentario"),rs.getString("name_u"));
+            con.close();
+            return coments;
+        }else{
+            con.close();
+            return null;
+        }
+    }
+    
+    //OBTENER COMENTARIOS DE LOS USUARIOS
+    public static ArrayList<info_comentarios> comentarios_users(String idprod) throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        ArrayList<info_comentarios> coments_user = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT idcomentario, usuarios_idusuario, productos_idproducto,comentario, fechacomentario, calificacion, fechacomentario, horacomentario, SUBSTRING_INDEX(usuarios.correouser,'@',1) AS name_u FROM comentarios INNER JOIN usuarios ON comentarios.usuarios_idusuario = usuarios.idusuario where comentarios.productos_idproducto = "+idprod+" LIMIT 5;");
+        while(rs.next()){
+            info_comentarios coments = new info_comentarios(rs.getString("idcomentario"),rs.getString("usuarios_idusuario"),rs.getString("productos_idproducto"),rs.getString("comentario"),rs.getString("calificacion"),rs.getString("fechacomentario"),rs.getString("horacomentario"),rs.getString("name_u"));
+            coments_user.add(coments);
+        }
+        con.close();
+        return coments_user;
+    }
+
+    public static int verificar_comentario (String iduser, String idprod) throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM comentarios WHERE usuarios_idusuario = "+iduser+" AND productos_idproducto = "+idprod+";");
+        if(rs.next()){
+            con.close();
+            return 1;
         }else{
             con.close();
             return 0;

@@ -9,14 +9,19 @@
 <%
     session = request.getSession();
     String opt = request.getParameter("opt");
+    String idprod = request.getParameter("id");
+    String msg = request.getParameter("msg");
+    
     if(session.getAttribute("idusuario") != null){
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
-
+    if(opt.equals("2") && msg != null){
+        request.setAttribute("mensaje", "Para insertar un comentario primero debes de inciar sesión");
+    }
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
         request.removeAttribute("mensaje");
-        out.println("<script>window.location='login.jsp?opt="+opt+"'</script>");
+        out.println("<script>window.location='login.jsp?opt="+opt+"&id="+idprod+"'</script>");
     }
 %>
 
@@ -243,19 +248,9 @@
                     </div>
                 </form>
             </div>
-            <div class="containter my-3 mx-1">
-                <div class="row my-4 text-end">
-                    <div class="col-5">
-                        <ul class="list-group">
-                            <li class="list-group-item active" aria-current="true">
-                                <h2>Productos más vendidos</h2>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 py-5 reg-color offset-1 align-self-center">
-                <form class="row g-3 needs-validation px-5 "  method="POST" <% out.println("action='start_session?opt="+opt+"'"); %> novalidate>
+                <h1>Iniciar sesión</h1>
+                <form class="row g-3 needs-validation px-5 "  method="POST" <% out.println("action='start_session?opt="+opt+"&id="+idprod+"'"); %> novalidate>
                     <div class="col-12 align-items-stretch align-self-center"> <!--CORREO DE INICIO DE SESION-->
                         <label for="email" class="form-label">Correo Electronico</label>
                         <input type="text" class="form-control" id="corre_inicio" name="email" value="" required>

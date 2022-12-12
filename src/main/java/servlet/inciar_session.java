@@ -49,8 +49,10 @@ public class inciar_session extends HttpServlet {
         
         String correo = request.getParameter("email");
         String password = request.getParameter("pass_ini");
-        String opt = request.getParameter("opt");
         
+        String opt = request.getParameter("opt");
+        String idprod = request.getParameter("id");
+                
         conection_db database = new conection_db();
         
         Connection con = database.conectar_db();
@@ -77,6 +79,11 @@ public class inciar_session extends HttpServlet {
             switch(opt){
                 case "1":
                     request.getRequestDispatcher("direccion_envio.jsp").forward(request, response);
+                    break;
+                case "2":
+                    out.println("OPT = " +opt);
+                    out.println("ID = "+ idprod);
+                    request.getRequestDispatcher("infoprod.jsp?id="+idprod).forward(request, response);
                     break;
                 default:
                     request.getRequestDispatcher("index.jsp").forward(request, response);

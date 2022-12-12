@@ -4,6 +4,7 @@
     Author     : ksio
 --%>
 
+<%@page import="objetos.info_comentarios"%>
 <%@page import="objetos.productoinfo"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="bd.conection_db"%>
@@ -12,17 +13,17 @@
 
 <!DOCTYPE html>
 <%
+    String idbusqueda = request.getParameter("id");
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
         request.removeAttribute("mensaje");
-        out.println("<script>window.location='login.jsp'</script>");
+        out.println("<script>window.location='infoprod.jsp?id="+idbusqueda+"'</script>");
     }
 
     String consulta;
     ArrayList<productoinfo> info = new ArrayList();
     productoinfo prod;
 
-    String idbusqueda = request.getParameter("id");
     consulta = "SELECT idproducto as id, nombreproducto as nombre, descripcionprod as descrip, precio, unidades, imagen as img, autores.autor as autor, aniopublicacion as anio, mespublicacion as mes, numeropaginas as paginas, editoriales.editorial as ed, colecciones.coleccion as colec, volumen FROM productos INNER JOIN autores ON productos.autores_idautor = autores.idautor INNER JOIN editoriales ON productos.editoriales_ideditorial = editoriales.ideditorial INNER JOIN colecciones ON productos.colecciones_idcoleccion = colecciones.idcoleccion WHERE productos.idproducto = " + idbusqueda + ";";
     info = conection_db.informacionprod(consulta);
     if (info.size() == 0) {
@@ -209,12 +210,10 @@
                                 %>
                                 <%
                                     if (calificacion != 0) {
-                                        out.println("<p>¡Calificación segun los usuarios!</p>");
                                         out.println("<div class='d-flex w-100 justify-content-evenly'>");
                                         out.println("<img src='assets/icons/c" + calificacion + ".jpg' alt='c1' width='190' class='img-fluid'>");
                                         out.println("</div>");
                                     } else if (calificacion == 0) {
-                                        out.println("<p>¡Aun sin calificación!</p>");
                                         out.println("<div class='d-flex w-100 justify-content-evenly'>");
                                         out.println("<img src='assets/icons/espada_rota.png' alt='c1' width='70' class='img-fluid'>");
                                         out.println("</div>");
@@ -317,154 +316,94 @@
                         </li>
                     </div>
                 </div>
-
+                
+                <%
+                    info_comentarios coments = null;
+                    if(session.getAttribute("idusuario") != null){
+                        coments = conection_db.check_comentario(session.getAttribute("idusuario").toString(), prod.getId());
+                    }
+                %>
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 reg-color">
                     <div class="list-group">
-                        <li class="list-group-item bg-light" aria-current="true">
-                            <div class="d-flex w-100 justify-content-start">
-                                <h6>Siguiente volumen</h6>
-                            </div>
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <div class="d-flex w-100 justify-content-evenly my-2">
-                                            <img width='80' height='100' src="assets/productos/prod_2.png" class="image-fluid" alt="siguiente">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h6 class="card-title">NOMBRE</h6>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p class="card-text">$ 0.00</p>
-                                                <a href="#" class="btn btn-warning">Comprar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <li class="list-group-item" style="background-color: #e3f2fd;" aria-current="true">
+                            <div class="d-flex w-100 justify-content-center">
+                                <h5 class="mb-1">¡Deja tu comentario sobre el producto!</h5><br>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
-                            <div class="d-flex w-100 justify-content-start">
-                                <h6>Volumen más nuevo</h6>
-                            </div>
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <div class="d-flex w-100 justify-content-evenly my-2">
-                                            <img width='80' height='100' src="assets/productos/prod_2.png" class="image-fluid" alt="siguiente">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h6 class="card-title">NOMBRE</h6>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p class="card-text">$ 0.00</p>
-                                                <a href="#" class="btn btn-warning">Comprar</a>
+                            <form class="row g-3 needs-validation px-2"  method="POST" <% 
+                                if (session.getAttribute("idusuario") == null) {
+                                    out.println("action='login.jsp?opt=2&id="+prod.getId()+"&msg="+1+"'");
+                                }else{
+                                    out.println("action='coments?id="+prod.getId()+"'");
+                                }
+                            %> novalidate>
+                                <div class="d-flex justify-content-end">
+                                    <span class="text-muted"><% if(coments != null){out.println(coments.getFecha()+ " / " + coments.getHora());}%></span>
+                                </div>
+                                <div class="col-12 align-items-stretch align-self-center"> <!--comentario-->
+                                    <div class="row d-flex justify-content-start">
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="text" maxlength="100" name="coment" class="form-control" id="floating" placeholder="¡Coloca tu comentario aquí!" required value=<% if(coments != null){out.println("'"+coments.getComentario()+"'");} %>>
+                                                <label for="floating">Tu comentario <% if(coments!=null){out.println(coments.getUser());} %></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item bg-light" aria-current="true">
-                            <div class="d-flex w-100 justify-content-start">
-                                <h6>Volumen anterior</h6>
-                            </div>
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <div class="d-flex w-100 justify-content-evenly my-2">
-                                            <img width='80' height='100' src="assets/productos/prod_2.png" class="image-fluid" alt="siguiente">
+                                <div class="col-12">
+                                    <div class="row d-flex justify-content-evenly">
+                                        <span class="m-2">¡Califica el producto!</span>
+                                        <div class="col-3 form-check">
+                                            <input class="form-check-input" type="radio" name="calif" id="exampleRadios1" value="1" required <% if(coments != null){if(coments.getCalificacion().equals("1")){out.println("checked");}} %>>
+                                            <label class="form-check-label" for="exampleRadios1"><img src='assets/icons/c1.jpg' alt='c1' width='50' class='img-fluid'></label>
                                         </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h6 class="card-title">NOMBRE</h6>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p class="card-text">$ 0.00</p>
-                                                <a href="#" class="btn btn-warning">Comprar</a>
-                                            </div>
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input" type="radio" name="calif" id="exampleRadios2" value="2" required <% if(coments != null){if(coments.getCalificacion().equals("2")){out.println("checked");}} %>>
+                                            <label class="form-check-label" for="exampleRadios2"><img src='assets/icons/c2.jpg' alt='c2' width="100" class='img-fluid'></label>
+                                        </div>
+                                        <div class="col-5 form-check">
+                                            <input class="form-check-input" type="radio" name="calif" id="exampleRadios3" value="3" required <% if(coments != null){if(coments.getCalificacion().equals("3")){out.println("checked");}} %>>
+                                            <label class="form-check-label" for="exampleRadios3"><img src='assets/icons/c3.jpg' alt='c3' width="130" class='img-fluid'></label>
+                                        </div>
+                                        <div class="col-6 form-check d-flex justify-content-evenly py-4">
+                                            <input class="form-check-input" type="radio" name="calif" id="exampleRadios4" value="4" required <% if(coments != null){if(coments.getCalificacion().equals("4")){out.println("checked");}} %>>
+                                            <label class="form-check-label" for="exampleRadios4"><img src='assets/icons/c4.jpg' alt='c4' width="160" class='img-fluid'></label>
+                                        </div>
+                                        <div class="col-6 form-check py-4">
+                                            <input class="form-check-input" type="radio" name="calif" id="exampleRadios5" value="5" required <% if(coments != null){if(coments.getCalificacion().equals("5")){out.println("checked");}} %>>
+                                            <label class="form-check-label" for="exampleRadios5"><img src='assets/icons/c5.jpg' alt='c5' width="190" class='img-fluid'></label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="d-flex justify-content-end">
+                                    <span class="text-muted">¡Recuerda, el peso de tus palabras esta en la forma que las dices!</span>
+                                </div>
+                                <div class="col-4>">
+                                    <div class="d-flex justify-content-end py-3">
+                                        <%
+                                            if(coments != null){
+                                                out.println("<button value='1' name='eliminar' class='btn btn-danger m-2' type='submit'>Eliminar</button>");
+                                                out.println("<button value='2' name='editar' class='btn btn-secondary m-2' type='submit'>Editar</button>");
+                                                out.println("<button value='3' name='comentar' disabled class='btn btn-success m-2' type='submit'>Comentar</button>");
+                                            }else{
+                                                out.println("<button value='1' name='eliminar' class='btn btn-danger m-2 disabled' type='submit'>Eliminar</button>");
+                                                out.println("<button value='2' name='editar' class='btn btn-secondary m-2 disabled' type='submit'>Editar</button>");
+                                                out.println("<button value='3' name='comentar' class='btn btn-success m-2' type='submit'>Comentar</button>");
+                                            }
+                                        %>
+                                    </div>
+                                </div>
+                            </form>
                         </li>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <div class="containter my-3 mx-1">
-            <div class="row my-4 text-end">
-                <div class="col-5">
-                    <ul class="list-group">
-                        <li class="list-group-item active" aria-current="true">
-                            <h3>¡Deja tu comentario sobre el producto!</h3>
-                        </li>
-                    </ul>        
-                </div>
-            </div>
-        </div>
-        <div class="container my-4">
-            <div class="row d-flex justify-content-start">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color">
-                    <form class="row g-3 needs-validation px-5 bg-light"  method="POST" action="#" <% //out.println("action='start_session?opt=" + opt + "'");%> novalidate>
-                        <div class="d-flex justify-content-end">
-                            <span class="text-muted">FECHA HORA</span>
-                        </div>
-                        <div class="col-12 align-items-stretch align-self-center"> <!--comentario-->
-                            <div class="row d-flex justify-content-start">
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="comentario" placeholder="Deja un comentario para los demas usuarios" maxlength="150"  required  id="floatingTextarea2" style="height: 80px"></textarea>
-                                        <label for="floatingTextarea2">Tu comentario</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="row d-flex justify-content-evenly">
-                                <span class="m-3">¡Califica el producto!</span>
-                                <div class="col-2 form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="c1" required>
-                                    <label class="form-check-label" for="exampleRadios1"><img src='assets/icons/c1.jpg' alt='c1' width='50' class='img-fluid'></label>
-                                </div>
-                                <div class="col-2 form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="c2" required>
-                                    <label class="form-check-label" for="exampleRadios2"><img src='assets/icons/c2.jpg' alt='c2' width="100" class='img-fluid'></label>
-                                </div>
-                                <div class="col-2 form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c3" required>
-                                    <label class="form-check-label" for="exampleRadios3"><img src='assets/icons/c3.jpg' alt='c3' width="130" class='img-fluid'></label>
-                                </div>
-                                <div class="col-3 form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="c4" required>
-                                    <label class="form-check-label" for="exampleRadios4"><img src='assets/icons/c4.jpg' alt='c4' width="160" class='img-fluid'></label>
-                                </div>
-                                <div class="col-3 form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="c5" required>
-                                    <label class="form-check-label" for="exampleRadios5"><img src='assets/icons/c5.jpg' alt='c5' width="190" class='img-fluid'></label>
-                                </div>
-                                <div class="invalid-feedback">
-                                    Selecciona una calificación
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <span class="text-muted">¡Recuerda, el peso de tus palabras esta en la forma que las dices!</span>
-                        </div>
-                        <div class="col-4>"> <!--CONTRASEÑA INICIO-->
-                            <div class="d-flex justify-content-end py-3">
-                                <button class="btn btn-danger m-2 disabled" type="submit">Eliminar</button>
-                                <button class="btn btn-secondary m-2 disabled" type="submit">Editar</button>
-                                <button class="btn btn-success m-2" type="submit">Comentar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <%
+            ArrayList<info_comentarios> coments_users = conection_db.comentarios_users(prod.getId());
+        %>
         <div class="containter my-3 mx-1">
             <div class="row my-4 text-end">
                 <div class="col-5">
@@ -476,29 +415,59 @@
                 </div>
             </div>
         </div>
-        <div class="container my-4 bg-light">
-            <div class="row d-flex justify-content-start">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color">
-                    <div class="col-12 align-items-stretch align-self-evenly"> <!--comentario-->
-                        <div class="row d-flex justify-content-start">
-                            <div class="col-9 py-4">
-                                <div class="form-floating">
-                                    <textarea class="form-control" maxlength="150" readonly id="floatingTextarea1" style="height: 80px"></textarea>
-                                    <label for="floatingTextarea1">Comentario de </label>
-                                </div>
-                            </div>
-                            <div class="col-3 d-flex align-content-center py-4">
-                                <img src='assets/icons/c5.jpg' alt='c5' height="60" width="250" class='img-fluid'>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end py-1">
-                        <span class="text-muted">FECHA HORA</span>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        </div>
+        
+        <%
+            if(!coments_users.isEmpty()){
+                for(info_comentarios com : coments_users){
+                    out.println("<div class='container my-2 bg-light'>");
+                    out.println("<div class='row d-flex justify-content-start'>");
+                    out.println("<div class='col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color'>");
+                    out.println("<div class='col-12 align-items-stretch align-self-evenly'>");
+                    out.println("<div class='row d-flex justify-content-start'>");
+                    out.println("<div class='col-9 py-4'>");
+                    out.println("<div class='form-floating'>");
+                    out.println("<input type='text' disabled class='form-control' id='floating1' value = '"+com.getComentario()+"'>");
+                    out.println("<label for='floating1'>Comentario de "+com.getUser()+" </label>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<div class='col-3 d-flex align-content-center py-4'>");
+                    out.println("<img src='assets/icons/c"+com.getCalificacion()+".jpg' class='img-fluid'>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<div class='d-flex justify-content-end py-1'>");
+                    out.println("<span class='text-muted'>"+com.getFecha()+" / "+ com.getHora() +"</span>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<hr>");
+                    out.println("</div>");
+                    out.println("</div>");
+                }
+            }else{
+                out.println("<div class='container my-2 bg-light'>");
+                out.println("<div class='row d-flex justify-content-start'>");
+                out.println("<div class='col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color'>");
+                out.println("<div class='col-12 align-items-stretch align-self-evenly'>");
+                out.println("<div class='row d-flex justify-content-start'>");
+                out.println("<div class='col-9 py-4'>");
+                out.println("<div class='form-floating'>");
+                out.println("<input type='text' disabled class='form-control' id='floating1' value = 'No hay comentarios aun, ¡Se el primero en dejar uno!'>");
+                out.println("<label for='floating1'>Comentarios vacios </label>");
+                out.println("</div>");
+                out.println("</div>");
+                out.println("<div class='col-3 d-flex align-content-center py-4'>");
+                out.println("<div class='d-flex w-100 justify-content-evenly'>");
+                out.println("<img src='assets/icons/espada_rota.png' alt='c1' width='70' class='img-fluid'>");
+                out.println("</div>");
+                out.println("</div>");
+                out.println("</div>");
+                out.println("</div>");
+                out.println("</div>");
+                out.println("<hr>");
+                out.println("</div>");
+                out.println("</div>");
+            }
+        %>
         <script>
             //VERIFICAR SI EL FOMRULARIO ES VALIDO O NO
             (() => {
