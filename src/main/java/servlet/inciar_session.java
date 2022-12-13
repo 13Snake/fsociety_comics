@@ -44,6 +44,9 @@ public class inciar_session extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
         java.sql.Statement stmt = null;
         java.sql.ResultSet resultado = null;
         

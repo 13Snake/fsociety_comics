@@ -33,7 +33,10 @@ public class registro extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, ClassNotFoundException, SQLException {
         
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
+        
         java.sql.Statement stmt = null;
         java.sql.ResultSet resultado = null;
         

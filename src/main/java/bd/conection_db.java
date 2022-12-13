@@ -194,4 +194,17 @@ public class conection_db {
             return 0;
         }
     }
+    
+    public static ArrayList<productos> buscar_producto(String busqueda)  throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        ArrayList<productos> resultado_bus = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT idproducto, nombreproducto, imagen, precio, unidades, editoriales.editorial, colecciones.coleccion, categorias.categoria, autores.autor FROM productos INNER JOIN editoriales ON editoriales.ideditorial = editoriales_ideditorial INNER JOIN colecciones ON colecciones.idcoleccion = colecciones_idcoleccion INNER JOIN categorias ON categorias.idcategoria = categorias_idcategorias INNER JOIN autores ON autores.idautor = autores_idautor WHERE nombreproducto LIKE '%"+busqueda+"%' OR editoriales.editorial LIKE '%"+busqueda+"%' OR colecciones.coleccion LIKE '%"+busqueda+"%'OR categorias.categoria LIKE '%"+busqueda+"%';");
+        while(rs.next()){
+            productos prod = new productos(rs.getString("idproducto"),rs.getString("imagen"),rs.getString("nombreproducto"),rs.getString("precio"),"");
+            resultado_bus.add(prod);
+        }
+        con.close();
+        return resultado_bus;
+    }
 }

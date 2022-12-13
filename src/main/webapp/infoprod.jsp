@@ -180,7 +180,7 @@
         <div class="container my-4">
             <div class="row d-flex justify-content-evenly">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5 reg-color bg-light">
-                    <img width='400' height='550' src="assets/productos/prod_2.png" class="image-fluid" alt="producto">
+                    <img width='400' height='550' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="image-fluid" alt="producto">
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 reg-color">
@@ -245,7 +245,7 @@
                                     out.println("</form>");
                                 } else {
                                     out.println("<div class='d-flex justify-content-center'>");
-                                    out.println("<a class='btn btn-danger' role='button'>Unidades terminadas, estamos trabajando para rellenar stock, disculpe las molestias</a>");
+                                    out.println("<a class='btn btn-danger' href='index.jsp' role='button'>Unidades terminadas, estamos trabajando para traer de vuelta este maravilloso titulo, pero ¡puedes ver más cosas en nuestra tienda!</a>");
                                     out.println("</div>");
                                 }
                             %>

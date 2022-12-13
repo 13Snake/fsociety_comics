@@ -52,10 +52,12 @@ min--%>
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="col-7 d-flex mx-3" role="search" action="#">
-                    <input class="form-control me-2" type="search" placeholder="Buscar en la tienda" aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
+
+                <form class="col-7 d-flex mx-3" role="search" method="POST"  action="search.jsp">
+                    <input class="form-control me-2" name="bus" type="search" placeholder="Busca tus productos aquí" aria-label="Search">
+                    <button name="bt_search" value="1" class="btn btn-warning" type="submit">Buscar</button>
                 </form>
+                
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <a class="nav-link mx-3" href="index.jsp">
                         <img src="assets/icons/inicio.png" alt="Inicio" width="35" height="25" class="img-fluid txt_nav d-inline-block">
@@ -234,16 +236,16 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">                                
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
-                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><% out.println(prod.getName()); %></span></strong></a>
+                                                <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><% out.println(prod.getName()); %></strong></a>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
                                                 <a type="button" href="#">
                                                     <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> 
                                                     </span>
                                                 </a>
                                             </div>
@@ -260,7 +262,7 @@ min--%>
                             <% prod = info.get(1); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -286,7 +288,7 @@ min--%>
                             <% prod = info.get(2); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -312,7 +314,7 @@ min--%>
                             <% prod = info.get(3); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -343,7 +345,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -369,7 +371,7 @@ min--%>
                             <% prod = info.get(5); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -395,7 +397,7 @@ min--%>
                             <% prod = info.get(6); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -421,7 +423,7 @@ min--%>
                             <% prod = info.get(7); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -451,7 +453,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -477,7 +479,7 @@ min--%>
                             <% prod = info.get(9); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -503,7 +505,7 @@ min--%>
                             <% prod = info.get(10); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -649,7 +651,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -675,7 +677,7 @@ min--%>
                             <% prod = info.get(1);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -701,7 +703,7 @@ min--%>
                             <% prod = info.get(2); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -727,7 +729,7 @@ min--%>
                             <% prod = info.get(3); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_5.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -758,7 +760,7 @@ min--%>
                             <% prod = info.get(4); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -784,7 +786,7 @@ min--%>
                             <% prod = info.get(5); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -810,7 +812,7 @@ min--%>
                             <% prod = info.get(6); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -836,7 +838,7 @@ min--%>
                             <% prod = info.get(7); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -867,7 +869,7 @@ min--%>
                             <% prod = info.get(8); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -893,7 +895,7 @@ min--%>
                             <% prod = info.get(9); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -919,7 +921,7 @@ min--%>
                             <% prod = info.get(10); %>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1066,7 +1068,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1092,7 +1094,7 @@ min--%>
                             <% prod = info.get(1);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1118,7 +1120,7 @@ min--%>
                             <% prod = info.get(2);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1144,7 +1146,7 @@ min--%>
                             <% prod = info.get(3);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1174,7 +1176,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1200,7 +1202,7 @@ min--%>
                             <% prod = info.get(5);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1226,7 +1228,7 @@ min--%>
                             <% prod = info.get(6);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1252,7 +1254,7 @@ min--%>
                             <% prod = info.get(7);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1282,7 +1284,7 @@ min--%>
                         <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1308,7 +1310,7 @@ min--%>
                             <% prod = info.get(9);%>
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">
@@ -1334,7 +1336,7 @@ min--%>
                             <% prod = info.get(10);%>      
                             <div class="col-3 col d-flex justify-content-end">
                                 <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="..."></a>
+                                    <a type="button" <% out.println("href='infoprod.jsp?id="+prod.getIdproducto()+"'"); %> ><img width='200' height='250' <% out.println("src='assets/productos/"+prod.getImagen()+"'"); %> class="card-img-top image-fluid" alt="..."></a>
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-9">

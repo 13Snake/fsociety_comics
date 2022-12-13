@@ -31,6 +31,8 @@ public class close_login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
         HttpSession session = request.getSession();
         session.removeAttribute("idusuario");        

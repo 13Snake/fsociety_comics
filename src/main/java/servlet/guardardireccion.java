@@ -36,6 +36,8 @@ public class guardardireccion extends HttpServlet {
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
         conection_db database = new conection_db();
         Connection con = database.conectar_db();

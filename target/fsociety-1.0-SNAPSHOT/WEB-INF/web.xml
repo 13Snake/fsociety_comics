@@ -37,10 +37,6 @@
         <servlet-class>servlet.metodoscarrito</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>formdireccion</servlet-name>
-        <servlet-class>servlet.formdireccion</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>guardardireccion</servlet-name>
         <servlet-class>servlet.guardardireccion</servlet-class>
     </servlet>
@@ -83,10 +79,6 @@
     <servlet-mapping>
         <servlet-name>metodoscarrito</servlet-name>
         <url-pattern>/carsave</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>formdireccion</servlet-name>
-        <url-pattern>/dir</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>guardardireccion</servlet-name>
