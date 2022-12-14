@@ -40,14 +40,16 @@ public class conection_db {
     
     //Metodo para actualizar alguna tabla de la base de datos
     public static int actualizar(String consulta) throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        Connection con = null;
         try{
-            Connection con = conectar_db();
+            con = conectar_db();
             stmt = con.createStatement();
             stmt.executeUpdate(consulta);
             con.close();
             return 1;
         }catch(SQLException e){
             System.err.println(e);
+            con.close();
             return 0;
         }
     }
@@ -182,6 +184,7 @@ public class conection_db {
         return coments_user;
     }
 
+    //VERIFICAR SI EL USUARIO YA COMENTO CIERTO PRODUCTO
     public static int verificar_comentario (String iduser, String idprod) throws SQLException, ClassNotFoundException, ClassNotFoundException{
         Connection con = conectar_db();
         stmt = con.createStatement();
@@ -195,16 +198,45 @@ public class conection_db {
         }
     }
     
+    //METODO PARA BUSCAR UN PRODUCTO CON LA BARRA DEL MENU
     public static ArrayList<productos> buscar_producto(String busqueda)  throws SQLException, ClassNotFoundException, ClassNotFoundException{
         ArrayList<productos> resultado_bus = new ArrayList();
         Connection con = conectar_db();
         stmt = con.createStatement();
-        rs = stmt.executeQuery("SELECT idproducto, nombreproducto, imagen, precio, unidades, editoriales.editorial, colecciones.coleccion, categorias.categoria, autores.autor FROM productos INNER JOIN editoriales ON editoriales.ideditorial = editoriales_ideditorial INNER JOIN colecciones ON colecciones.idcoleccion = colecciones_idcoleccion INNER JOIN categorias ON categorias.idcategoria = categorias_idcategorias INNER JOIN autores ON autores.idautor = autores_idautor WHERE nombreproducto LIKE '%"+busqueda+"%' OR editoriales.editorial LIKE '%"+busqueda+"%' OR colecciones.coleccion LIKE '%"+busqueda+"%'OR categorias.categoria LIKE '%"+busqueda+"%';");
+        rs = stmt.executeQuery("SELECT idproducto, nombreproducto, imagen, precio, unidades, editoriales.editorial, colecciones.coleccion, categorias.categoria, autores.autor FROM productos INNER JOIN editoriales ON editoriales.ideditorial = editoriales_ideditorial INNER JOIN colecciones ON colecciones.idcoleccion = colecciones_idcoleccion INNER JOIN categorias ON categorias.idcategoria = categorias_idcategorias INNER JOIN autores ON autores.idautor = autores_idautor WHERE nombreproducto LIKE '%"+busqueda+"%' OR editoriales.editorial LIKE '%"+busqueda+"%' OR colecciones.coleccion LIKE '%"+busqueda+"%'OR categorias.categoria LIKE '%"+busqueda+"%' LIMIT 100;");
         while(rs.next()){
             productos prod = new productos(rs.getString("idproducto"),rs.getString("imagen"),rs.getString("nombreproducto"),rs.getString("precio"),"");
             resultado_bus.add(prod);
         }
         con.close();
         return resultado_bus;
+    }
+    
+    //METODO PARA OBTENER LA LISTA DE DESEOS DEL USUARIO
+    public static ArrayList<productos> lista_deseos(String id)  throws SQLException, ClassNotFoundException, ClassNotFoundException{
+        ArrayList<productos> resultado_bus = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT idproducto, nombreproducto, imagen, precio, unidades FROM productos INNER JOIN listadeseos ON listadeseos.productos_idproducto = idproducto INNER JOIN usuarios ON usuarios.idusuario = listadeseos.usuarios_idusuario WHERE usuarios.idusuario = "+id+";");
+        while(rs.next()){
+            productos prod = new productos(rs.getString("idproducto"),rs.getString("imagen"),rs.getString("nombreproducto"),rs.getString("precio"),"");
+            resultado_bus.add(prod);
+        }
+        con.close();
+        return resultado_bus;
+    }
+    
+    //verificar que el producto no este ya registrado en la lista de deseados del usuario
+    public static int check_lista(String idprod, String iduser) throws SQLException, ClassNotFoundException{
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM listadeseos WHERE usuarios_idusuario = "+iduser+" AND productos_idproducto = "+idprod+";");
+        if(rs.next()){
+            con.close();
+            return 1;
+        }else{
+            con.close();
+            return 0;
+        }
     }
 }

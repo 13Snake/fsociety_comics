@@ -52,6 +52,10 @@
         <servlet-name>metodoscomentarios</servlet-name>
         <servlet-class>servlet.metodoscomentarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>agregardeseo</servlet-name>
+        <servlet-class>servlet.agregardeseo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registro</servlet-name>
         <url-pattern>/reg_session</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>metodoscomentarios</servlet-name>
         <url-pattern>/coments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>agregardeseo</servlet-name>
+        <url-pattern>/addwish</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -89,7 +89,7 @@ public class inciar_session extends HttpServlet {
                     request.getRequestDispatcher("infoprod.jsp?id="+idprod).forward(request, response);
                     break;
                 default:
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("lista_deseos.jsp").forward(request, response);
                     break;
             }
         }else{

@@ -20,7 +20,6 @@
     
     session = request.getSession();
     if(session.getAttribute("carrito")!=null){
-        System.out.println(""+session.getAttribute("idusuario"));
         if(session.getAttribute("idusuario") == null){
             out.println("<script>alert('Inicia sesión o registrate para poder continuar tu compra'); </script>");
             out.println("<script>window.location='login.jsp?opt=1'</script>");
