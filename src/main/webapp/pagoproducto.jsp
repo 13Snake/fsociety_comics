@@ -56,7 +56,7 @@
                     <ul class='list-group'>
                         <li class="list-group-item" style="background-color: #e3f2fd;">
                             <div class="d-flex justify-content-center">
-                                <h4>Resumen de la orden</h4>
+                                <h4>Resumen del pedido</h4>
                             </div>
                         </li>
                         <%
@@ -72,7 +72,7 @@
                                     out.println("<div class='col-md-12'>");
                                     out.println("<div class='card-body'>");
                                     out.println("<div class='d-flex w-100 justify-content-start my-2'>");
-                                    out.println("<img width='80' height='100' src='assets/productos/prod_2.png' class='image-fluid'>");
+                                    out.println("<img width='80' height='100' src='assets/productos/"+item.getImg()+"' class='image-fluid'>");
                                     out.println("<div class='d-flex w-100 align-items-start p-2'>");
                                     out.println("<small class='card-title'>" + item.getNombre() + "<br> $ " + item.getParcial() + " <br> Cant: " + item.getCantidad() + "</small>");
                                     out.println("</div>");
@@ -110,6 +110,7 @@
                 </div>
             </div>
         </div>
+        
         <script>
             //VERIFICAR SI EL FOMRULARIO ES VALIDO O NO
             (() => {

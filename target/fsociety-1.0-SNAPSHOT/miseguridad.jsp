@@ -45,7 +45,7 @@
                             <small class="text-muted">Toda tu información esta protegida</small>
                         </a>
 
-                        <a href="miseguridad.jsp" class="list-group-item list-group-item-action active" aria-current="true">
+                        <a href="miseguridad.jsp" class="list-group-item list-group-item-action active" style="background-color: #1e1e1e;" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Seguridad</h5>
                             </div>
@@ -55,22 +55,10 @@
 
                         <a href="mispedidos.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Mis pedidos</h5>
-                                <!--<?php
-                                    include 'php/conexiondb.php';
-                                    $stmt = $dbh->prepare("SELECT Fecha_inicio FROM reservaciones WHERE F_IDUsuario=:id AND CURDATE()<Fecha_inicio LIMIT 1;");
-                                    $stmt -> bindParam(':id',$_SESSION['data'][1]);
-                                    $stmt -> execute();
-                                    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-                                    if(!empty($resultado)){
-                                        echo "<small>El siguiente es: ".$resultado['Fecha_inicio']."</small>";
-                                    }else{
-                                        echo "<small>El siguiente es: Sin Viaje Agendado</small>";
-                                    }
-                                ?>-->
+                                <h5 class="mb-1">Mis Pedidos</h5>
                             </div>
                             <p class="mb-1">Un gran viaje empieza por una buena compra</p>
-                            <small class="text-muted">¡Recuerda que no hay costo por cancelacion!</small>
+                            <small class>¡Recuerda que no hay costo por cancelacion!</small>
                         </a>
 
                         <a href="lista_deseos.jsp" class="list-group-item list-group-item-action" aria-current="true">
@@ -81,7 +69,7 @@
                             <small class="text-muted">¡Gracias por confiar en Fsociety!</small>
                         </a>
 
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="miscomentarios.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis Comentarios</h5>
                             </div>
@@ -98,7 +86,7 @@
                     <div class="accordion my-4" id="accordionPanelsStayOpenExample">
                         <div class="accordion" id="accordionExample">
                             <!--Seguridad-->
-                            <div class="accordion-item">
+                            <div class="accordion-item bg-light">
 
                                 <!--EDITAR LA CONTRASEÑA-->
                                 <h2 class="accordion-header" id="headingTwo">
@@ -146,14 +134,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary" type="submit">Editar</button>
+                                                <button class="btn btn-warning" type="submit">Editar</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="accordion-item">
+                            <div class="accordion-item bg-light">
 
                                 <!--DESACTIVAR CUENTA-->
                                 <h2 class="accordion-header" id="headingTwo">
@@ -189,7 +177,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary" type="submit">Desactivar cuenta</button>
+                                                <button class="btn btn-warning" type="submit">Desactivar cuenta</button>
                                             </div>
                                         </form>
                                     </div>

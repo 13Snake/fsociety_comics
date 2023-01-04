@@ -14,6 +14,7 @@ import objetos.infocarrito;
 import objetos.productoinfo;
 import objetos.productos;
 import objetos.prodventa;
+import objetos.tablapedidos;
 
 /**
  *
@@ -176,7 +177,7 @@ public class conection_db {
         ArrayList<info_comentarios> coments_user = new ArrayList();
         Connection con = conectar_db();
         stmt = con.createStatement();
-        rs = stmt.executeQuery("SELECT idcomentario, usuarios_idusuario, productos_idproducto,comentario, fechacomentario, calificacion, fechacomentario, horacomentario, SUBSTRING_INDEX(usuarios.correouser,'@',1) AS name_u FROM comentarios INNER JOIN usuarios ON comentarios.usuarios_idusuario = usuarios.idusuario where comentarios.productos_idproducto = "+idprod+" LIMIT 5;");
+        rs = stmt.executeQuery("SELECT idcomentario, usuarios_idusuario, productos_idproducto,comentario, fechacomentario, calificacion, fechacomentario, horacomentario, SUBSTRING_INDEX(usuarios.correouser,'@',1) AS name_u FROM comentarios INNER JOIN usuarios ON comentarios.usuarios_idusuario = usuarios.idusuario where comentarios.productos_idproducto = "+idprod+" ORDER BY idcomentario DESC LIMIT 50;");
         while(rs.next()){
             info_comentarios coments = new info_comentarios(rs.getString("idcomentario"),rs.getString("usuarios_idusuario"),rs.getString("productos_idproducto"),rs.getString("comentario"),rs.getString("calificacion"),rs.getString("fechacomentario"),rs.getString("horacomentario"),rs.getString("name_u"));
             coments_user.add(coments);
@@ -241,15 +242,40 @@ public class conection_db {
         }
     }
     
-    public static ArrayList<prodventa> obtener_pedidos (String user) throws SQLException, ClassNotFoundException{
+    //METODOS UTILZADOS PARA EL APARTADO DE LOS PEDIDOS DEL USUARIO
+    public static ArrayList<tablapedidos> numero_pedidos (String user) throws SQLException, ClassNotFoundException{
+        ArrayList<tablapedidos> num_pedidos = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT usuarios_idusuario as user, id, COUNT(id) AS numprod FROM ventas INNER JOIN productos ON productos_idproducto = productos.idproducto WHERE usuarios_idusuario = "+user+" GROUP BY id ORDER BY id DESC LIMIT 24");
+        while(rs.next()){
+            tablapedidos num = new tablapedidos(rs.getString("id"),rs.getString("numprod"));
+            num_pedidos.add(num);
+        }
+        return num_pedidos;
+    }
+    public static ArrayList<prodventa> obtener_pedidos (String user, String id) throws SQLException, ClassNotFoundException{
         ArrayList<prodventa> pedidos = new ArrayList();
         Connection con = conectar_db();
         stmt = con.createStatement();
-        rs = stmt.executeQuery("SELECT usuarios_idusuario as user, id, subtotal, ventas.unidades as unidades, fechaventa, fechallegada, productos.nombreproducto as name FROM ventas INNER JOIN productos ON productos_idproducto = productos.idproducto WHERE usuarios_idusuario = "+user+";");
+        rs = stmt.executeQuery("SELECT usuarios_idusuario as user, id, subtotal, ventas.unidades as unidades, fechaventa, fechallegada, productos.nombreproducto as name, estadoventa FROM ventas INNER JOIN productos ON productos_idproducto = productos.idproducto WHERE usuarios_idusuario = "+user+" AND id = "+id+";");
         while(rs.next()){
-            prodventa pedido = new prodventa(rs.getString("id"),rs.getString("user"),rs.getString("name"),rs.getString("unidades"),rs.getDouble("subtotal"),rs.getString("fechaventa"),rs.getString("fechallegada"));
+            prodventa pedido = new prodventa(rs.getString("id"),rs.getString("user"),rs.getString("name"),rs.getString("unidades"),rs.getDouble("subtotal"),rs.getString("fechaventa"),rs.getString("fechallegada"),rs.getString("estadoventa"));
             pedidos.add(pedido);
         }
         return pedidos;
+    }
+    
+    //METODO PARA OBTENER TODOS LOS COMENTARIOS DE UN USUARIO
+    public static ArrayList<info_comentarios> comentarios_usuario (String user)throws SQLException, ClassNotFoundException{
+        ArrayList<info_comentarios> comentarios = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT usuarios_idusuario, productos_idproducto, productos.nombreproducto, comentario, calificacion, fechacomentario, horacomentario FROM comentarios INNER JOIN productos ON productos_idproducto = productos.idproducto WHERE usuarios_idusuario = "+user+" ORDER BY fechacomentario DESC;");
+        while(rs.next()){
+            info_comentarios coment = new info_comentarios(rs.getString("nombreproducto"), rs.getString("usuarios_idusuario"), rs.getString("productos_idproducto"), rs.getString("comentario"), rs.getString("calificacion"), rs.getString("fechacomentario"), rs.getString("horacomentario"),"");
+            comentarios.add(coment);
+        }
+        return comentarios;
     }
 }

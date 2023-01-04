@@ -30,6 +30,30 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
     prod = info.get(0);
+    
+    String user = session.getAttribute("idusuario").toString();
+    
+    String bt_nums = request.getParameter("pos");
+    int posicion;
+    int bandera = 0;
+    if(bt_nums == null){
+        posicion = 1;
+    }else{
+        posicion = Integer.parseInt(bt_nums);
+        bandera = 1;
+    }    
+    
+    ArrayList<info_comentarios> coments_users = conection_db.comentarios_users(prod.getId());
+    int cantidad = coments_users.size();
+    float nums_lista = cantidad/5;
+    
+    if(cantidad % 5 != 0){
+        nums_lista = nums_lista+1;
+    }
+    
+    if(posicion <= 0 || posicion > nums_lista && bandera == 1){
+        out.println("<script>window.location='index.jsp'</script>");
+    }
 %>
 <html lang="es">
     <head>
@@ -39,9 +63,6 @@
         <title>Fsociety - <% out.println(prod.getNombre()); %></title>
 
         <!--CSS Y JS BOOTSTRAP-->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="scrips/bootstrap.bundle.min.js"></script>
-        <script src="scrips/main.css"></script>
         <style>
             textarea{
                 resize: none;
@@ -281,14 +302,11 @@
             </div>
         </div>
 
-        <%
-            ArrayList<info_comentarios> coments_users = conection_db.comentarios_users(prod.getId());
-        %>
         <div class="containter my-3 mx-1">
             <div class="row my-4 text-end">
                 <div class="col-5">
                     <ul class="list-group">
-                        <li class="list-group-item active"  aria-current="true">
+                        <li class="list-group-item active" style="background-color: #1e1e1e;"  aria-current="true">
                             <h3>¡Comentarios de otros usuarios!</h3>
                         </li>
                     </ul>        
@@ -297,33 +315,7 @@
         </div>
         
         <%
-            if(!coments_users.isEmpty()){
-                for(info_comentarios com : coments_users){
-                    out.println("<div class='container my-2 bg-light'>");
-                    out.println("<div class='row d-flex justify-content-start'>");
-                    out.println("<div class='col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color'>");
-                    out.println("<div class='col-12 align-items-stretch align-self-evenly'>");
-                    out.println("<div class='row d-flex justify-content-start'>");
-                    out.println("<div class='col-9 py-4'>");
-                    out.println("<div class='form-floating'>");
-                    out.println("<input type='text' disabled class='form-control' id='floating1' value = '"+com.getComentario()+"'>");
-                    out.println("<label for='floating1'>Comentario de "+com.getUser()+" </label>");
-                    out.println("</div>");
-                    out.println("</div>");
-                    out.println("<div class='col-3 d-flex align-content-center py-4'>");
-                    out.println("<img src='assets/icons/c"+com.getCalificacion()+".jpg' class='img-fluid'>");
-                    out.println("</div>");
-                    out.println("</div>");
-                    out.println("</div>");
-                    out.println("<div class='d-flex justify-content-end py-1'>");
-                    out.println("<span class='text-muted'>"+com.getFecha()+" / "+ com.getHora() +"</span>");
-                    out.println("</div>");
-                    out.println("</div>");
-                    out.println("<hr>");
-                    out.println("</div>");
-                    out.println("</div>");
-                }
-            }else{
+            if(coments_users.isEmpty()){
                 out.println("<div class='container my-2 bg-light'>");
                 out.println("<div class='row d-flex justify-content-start'>");
                 out.println("<div class='col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color'>");
@@ -346,8 +338,69 @@
                 out.println("<hr>");
                 out.println("</div>");
                 out.println("</div>");
-            }
+            } else {
+                    int fin = 0;
+                    int inicio = (posicion * 5) - 5;
+                    if ((inicio + 5) <= coments_users.size()) {
+                        fin = inicio + 5;
+                    } else {
+                        fin = coments_users.size();
+                    }
+                    for (int x = inicio; x < fin; x++) {
+                        info_comentarios com = coments_users.get(x);
+                        out.println("<div class='container my-2 bg-light'>");
+                        out.println("<div class='row d-flex justify-content-start'>");
+                        out.println("<div class='col-sm-12 col-md-6 col-lg-6 col-xl-12 reg-color'>");
+                        out.println("<div class='col-12 align-items-stretch align-self-evenly'>");
+                        out.println("<div class='row d-flex justify-content-start'>");
+                        out.println("<div class='col-9 py-4'>");
+                        out.println("<div class='form-floating'>");
+                        out.println("<input type='text' disabled class='form-control' id='floating1' value = '"+com.getComentario()+"'>");
+                        out.println("<label for='floating1'>Comentario de "+com.getUser()+" </label>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("<div class='col-3 d-flex align-content-center py-4'>");
+                        out.println("<img src='assets/icons/c"+com.getCalificacion()+".jpg' class='img-fluid'>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("<div class='d-flex justify-content-end py-1'>");
+                        out.println("<span class='text-muted'>"+com.getFecha()+" / "+ com.getHora() +"</span>");
+                        out.println("</div>");
+                        out.println("</div>");
+                        out.println("<hr>");
+                        out.println("</div>");
+                        out.println("</div>");
+                    }
+
+                }
         %>
+        <div class="containter-fluid my-3">
+            <div class="row my-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-lg">
+                            <%
+                                if (nums_lista > 1 && !coments_users.isEmpty()) {
+                                    for (int x = 1; x <= nums_lista; x++) {
+                                        if (posicion == x) {
+                                            out.println("<li class='page-item active' aria-current='page'>");
+                                            out.println("<span class='page-link'>" + x + "</span>");
+                                            out.println("</li>");
+                                        } else {
+                                            out.println("<li class='page-item'><a class='page-link' href='miscomentarios.jsp?pos=" + x + "'>" + x + "</a></li>");
+                                            out.println("</li>");
+                                        }
+                                    }
+                                }
+                            %>
+                        </ul>      
+                    </nav>
+                </div>
+            </div>
+        </div>
+        
+        
         <script>
             //VERIFICAR SI EL FOMRULARIO ES VALIDO O NO
             (() => {

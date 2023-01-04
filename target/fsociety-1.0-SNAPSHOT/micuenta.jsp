@@ -43,12 +43,12 @@
                 <div class="col-sm-12 col-md-4 col-lg-5 col-xl-6 py-4 reg-color">
                     <div class="list-group">
 
-                        <a href="micuenta.jsp" class="list-group-item list-group-item-action active" aria-current="true">
+                        <a href="micuenta.jsp" class="list-group-item list-group-item-action active" style="background-color: #1e1e1e;" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Información Personal</h5>
                             </div>
                             <p class="mb-1">Todo lo que necesitamos para conocerte y darte nuestros servicios</p>
-                            <small>Toda tu información esta protegida</small>
+                            <small class="text">Toda tu información esta protegida</small>
                         </a>
 
                         <a href="miseguridad.jsp" class="list-group-item list-group-item-action" aria-current="true">
@@ -56,27 +56,15 @@
                                 <h5 class="mb-1">Seguridad</h5>
                             </div>
                             <p class="mb-1">Tu mismo decides como entrar a tu cuenta</p>
-                            <small class="text-muted">Lo mas importante de tu cuenta</small>
+                            <small>Lo mas importante de tu cuenta</small>
                         </a>
 
                         <a href="mispedidos.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Mis pedidos</h5>
-                                <!--<?php 
-                                    include 'php/conexiondb.php';
-                                    $stmt = $dbh->prepare("SELECT Fecha_inicio FROM reservaciones WHERE F_IDUsuario=:id AND CURDATE()<Fecha_inicio LIMIT 1;");
-                                    $stmt -> bindParam(':id',$_SESSION['data'][1]);
-                                    $stmt -> execute();
-                                    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-                                    if(!empty($resultado)){
-                                        echo "<small>El siguiente es: ".$resultado['Fecha_inicio']."</small>";
-                                    }else{
-                                        echo "<small>El siguiente es: Sin Viaje Agendado</small>";
-                                    }
-                                ?>-->
+                                <h5 class="mb-1">Mis Pedidos</h5>
                             </div>
                             <p class="mb-1">Un gran viaje empieza por una buena compra</p>
-                            <small class="text-muted">¡Recuerda que no hay costo por cancelacion!</small>
+                            <small class>¡Recuerda que no hay costo por cancelacion!</small>
                         </a>
 
                         <a href="lista_deseos.jsp" class="list-group-item list-group-item-action" aria-current="true">
@@ -87,7 +75,7 @@
                             <small class="text-muted">¡Gracias por confiar en Fsociety!</small>
                         </a>
 
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="miscomentarios.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis Comentarios</h5>
                             </div>
@@ -115,7 +103,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bg-light">
 
                                         <form class="row g-3 needs-validation"  method="POST" action="modcuenta?opcion=1" novalidate> <!--USAMOS VARIABLE OPCION PARA EL PHP SIGUIENTE-->
                                             <div class="col-md-6">
@@ -145,7 +133,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary" type="submit">Editar</button>
+                                                <button class="btn btn-warning" type="submit">Editar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -153,7 +141,7 @@
                             </div>
 
                             <!--EDITAR EL CORREO ELECTRONICO-->
-                            <div class="accordion-item">
+                            <div class="accordion-item bg-light">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded='true' aria-controls='collapseOne'>
                                         Correo Electrónico <div class='col d-flex justify-content-end'><label> <% out.println(user_info[3]); %></label></div> 
@@ -181,7 +169,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
+                                                <button class="btn btn-warning " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
                                             </div>
                                         </form>
                                     </div>
@@ -189,7 +177,7 @@
                             </div>
 
                             <!--EDITAR Número TELEFONICO-->
-                            <div class="accordion-item">
+                            <div class="accordion-item bg-light">
                                 <h2 class="accordion-header" id="headingThree">
                                       <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded='true' aria-controls='collapseOne'>
                                       Número Telefonico <div class='col d-flex justify-content-end'><label> <% out.println(user_info[5]); %> </label></div> 
@@ -217,7 +205,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
+                                                <button class="btn btn-warning " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
                                             </div>
                                         </form>
                                     </div>
@@ -225,7 +213,7 @@
                             </div>
                             
                             <!--EDITAR DIRECCION-->
-                            <div class="accordion-item">
+                            <div class="accordion-item bg-light">
                                 <h2 class="accordion-header" id="headingThree">
                                       <%
                                         //METODO PARA REVISAR SI EXISTE UNA DIRECCION O SI SE DEBE DE QUITAR EL NULL DE LAS VARIABLES
@@ -330,7 +318,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button class="btn btn-primary " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
+                                                <button class="btn btn-warning " type="submit">Editar</button> <!--AQUI VA EL PHP PARA EDITAR EL NOMBRE-->
                                             </div>
                                         </form>
                                     </div>

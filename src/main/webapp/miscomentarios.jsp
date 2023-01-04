@@ -1,9 +1,10 @@
 <%-- 
-    Document   : mispedidos
-    Created on : 15 dic 2022, 22:34:31
+    Document   : miscomentarios
+    Created on : 4 ene 2023, 01:28:15
     Author     : ksio
 --%>
 
+<%@page import="objetos.info_comentarios"%>
 <%@page import="objetos.tablapedidos"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -20,7 +21,7 @@
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
         request.removeAttribute("mensaje");
-        out.println("<script>window.location='mispedidos.jsp'</script>");
+        out.println("<script>window.location='miscomentarios.jsp'</script>");
     }
     String user = session.getAttribute("idusuario").toString();
     
@@ -34,8 +35,8 @@
         bandera = 1;
     }    
     
-    ArrayList<tablapedidos> num_pedidos = conection_db.numero_pedidos(user);
-    int cantidad = num_pedidos.size();
+    ArrayList<info_comentarios> comentarios = conection_db.comentarios_usuario(user);
+    int cantidad = comentarios.size();
     float nums_lista = cantidad/3;
     
     if(cantidad % 3 != 0){
@@ -45,9 +46,6 @@
     if(posicion <= 0 || posicion > nums_lista && bandera == 1){
         out.println("<script>window.location='index.jsp'</script>");
     }
-    
-    //CONSULTA PARA QUE CAMBIE EL ESTADO DE ENVIO DEL PEDIDO SI YA HAN PASADO TRES DIAS DESPUES DE LA VENTA DEL PRODUCTO, COMO SIMULACION
-    conection_db.actualizar("UPDATE ventas SET estadoventa = if(CURDATE()>=(fechallegada+3),'1','0') WHERE usuarios_idusuario = "+user+";");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +53,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mis pedidos-Fsociety</title>
+        <title>Mis comentarios-Fsociety</title>
 
     </head>
     <body>
@@ -84,7 +82,7 @@
                             <small>Lo mas importante de tu cuenta</small>
                         </a>
 
-                        <a href="mispedidos.jsp" class="list-group-item list-group-item-action active" style="background-color: #1e1e1e;" aria-current="true">
+                        <a href="mispedidos.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis Pedidos</h5>
                             </div>
@@ -100,7 +98,7 @@
                             <small class="text-muted">¡Gracias por confiar en Fsociety!</small>
                         </a>
 
-                        <a href="miscomentarios.jsp" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="miscomentarios.jsp" class="list-group-item list-group-item-action active" style="background-color: #1e1e1e;" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis Comentarios</h5>
                             </div>
@@ -113,14 +111,14 @@
                 
                 <div class='col-sm-12 col-md-4 col-lg-5 col-xl-6 py-4 reg-color'>
                 <% 
-                    if(num_pedidos.isEmpty()){
+                    if(comentarios.isEmpty()){
                         out.println("<div class='row row-cols-12 row-cols-md-12 g-12 px-5'>");
                         out.println("<div class='card text-center'>");
                         out.println("<div class='card-header'>");
                         out.println("</div>");
                         out.println("<div class='card-body'>");
-                        out.println("<h5 class='card-title'>¡Aun no tienes pedido realizados!</h5>");
-                        out.println("<p class='card-text'>Corre y obten todas las historias que te interesen</p>");
+                        out.println("<h5 class='card-title'>¡Aun no haz hecho ningun comentario!</h5>");
+                        out.println("<p class='card-text'>Corre a ver nuestros productos y comentá si te agradan</p>");
                         out.println("<a href='index.jsp' class='btn btn-warning'>Volver al inicio</a>");
                         out.println("</div>");
                         out.println("<div class='card-footer text-muted'>");
@@ -135,28 +133,23 @@
                         
                         int fin = 0;
                         int inicio = (posicion * 3) - 3;
-                        if ((inicio + 3) <= num_pedidos.size()) {
+                        if ((inicio + 3) <= comentarios.size()) {
                             fin = inicio + 3;
                         } else {
-                            fin = num_pedidos.size();
+                            fin = comentarios.size();
                         }
                         for (int x = inicio; x < fin; x++) {
-                            double total = 0;
-                            String fecha_llegada = "";
-                            String estado_venta = "";
-                            String fecha_venta = "";
-                            
-                            tablapedidos prod_tabla = num_pedidos.get(x);
+                            info_comentarios coments_table = comentarios.get(x);
                             out.println("<div class='card mb-3' style='max-width: 540px;'>");
                             out.println("<div class='row g-0'>");
                             out.println("<div class='col-md-12'>");
                             out.println("<div class='card-body'>");
-                            out.println("<strong><span class='card-title d-flex justify-content-center'>Pedido Num. "+(x+1)+"</span></strong>");
+                            out.println("<strong><span class='card-title d-flex justify-content-center'>Comentario Num. "+(x+1)+"</span></strong>");
                             out.println("<div class='accordion accordion-flush' id='z"+z+"'>");
                             out.println("<div class='accordion-item'>");
                             out.println("<h2 class='accordion-header' id='x"+x+"'>");
                             out.println("<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#y"+y+"' aria-expanded='true' aria-controls='x"+x+"'>");
-                            out.println("Productos comprados");
+                            out.println("<span>"+coments_table.getIdcomnetario()+"</span>");
                             out.println("</button>");
                             out.println("</h2>");
                             out.println("<div id='y"+y+"' class='accordion-collapse collapse' aria-labelledby='x"+x+"' data-bs-parent='#z"+z+"'>");
@@ -164,24 +157,17 @@
                             out.println("<table class='table table-striped table-responsive'>");
                             out.println("<thead>");
                             out.println("<tr>");
-                            out.println("<th scope='col'>Prod</th>");
-                            out.println("<th scope='col'>Uni</th>");
-                            out.println("<th scope='col'>Par</th>");
+                            out.println("<th scope='col'>Comentario</th>");
+                            out.println("<th scope='col'>Calif</th>");
                             out.println("</tr>");
                             out.println("</thead>");
                             out.println("<tbody>");
-                            ArrayList<prodventa> pedidos = conection_db.obtener_pedidos(user,prod_tabla.getId());
-                            for(prodventa pedido_tabla : pedidos){
-                                out.println("<tr>");
-                                out.println("<td>"+pedido_tabla.getName()+"</td>");
-                                out.println("<td>"+pedido_tabla.getUnidades()+"</td>");
-                                out.println("<td>$ "+pedido_tabla.getSubtotal()+"</td>");
-                                out.println("</tr>");
-                                total = total + pedido_tabla.getSubtotal();
-                                fecha_llegada = pedido_tabla.getFechallegada();
-                                estado_venta = pedido_tabla.getEstadoventa();
-                                fecha_venta = pedido_tabla.getFechaventa();
-                            }
+                            
+                            out.println("<tr>");
+                            out.println("<td>"+coments_table.getComentario()+"</td>");
+                            out.println("<td>"+coments_table.getCalificacion()+"/5</td>");
+                            out.println("</tr>");
+                            
                             out.println("</tbody>");
                             out.println("</table>");
                             out.println("</div>");
@@ -190,13 +176,10 @@
                             out.println("</div>");
                             out.println("</div>");
                             out.println("<div class='card-footer'>");
-                            out.println("<span class='d-flex justify-content-evenly'> <small>TOTAL: $ "+total+"</small>");
-                            out.println("<small>Comprado el "+fecha_venta+"</small>");
-                            if(estado_venta.equals("0")){
-                                out.println("<small><strong>Llega el "+fecha_llegada+"</strong></small></span>");
-                            }else{
-                                out.println("Pedido Entregado</span>");
-                            }
+                            out.println("<span class='d-flex justify-content-evenly'>");
+                            out.println("<small>Comentado el "+coments_table.getFecha()+"</small>");
+                            out.println("<small>A las "+coments_table.getHora()+"</small>");
+                            out.println("<a href=infoprod.jsp?id="+coments_table.getIdprod()+">Ver más / Editar</a></span>");
                             out.println("</div>");
                             out.println("</div>");
                             out.println("</div>");
@@ -213,14 +196,14 @@
                             <nav aria-label="...">
                                 <ul class="pagination pagination-lg">
                                     <%
-                                        if (nums_lista > 1 && !num_pedidos.isEmpty()) {
+                                        if (nums_lista > 1 && !comentarios.isEmpty()) {
                                             for (int x = 1; x <= nums_lista; x++) {
                                                 if (posicion == x) {
                                                     out.println("<li class='page-item active' aria-current='page'>");
                                                     out.println("<span class='page-link'>" + x + "</span>");
                                                     out.println("</li>");
                                                 } else {
-                                                    out.println("<li class='page-item'><a class='page-link' href='mispedidos.jsp?pos=" + x + "'>" + x + "</a></li>");
+                                                    out.println("<li class='page-item'><a class='page-link' href='miscomentarios.jsp?pos=" + x + "'>" + x + "</a></li>");
                                                     out.println("</li>");
                                                 }
                                             }

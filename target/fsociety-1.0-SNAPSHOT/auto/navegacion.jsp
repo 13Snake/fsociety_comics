@@ -79,7 +79,7 @@
                                 out.println("<li><a class='dropdown-item' href='../miseguridad.jsp'>Seguridad</a></li>");
                                 out.println("<li><a class='dropdown-item' href='../mispedidos.jsp'>Mis pedidos</a></li>");
                                 out.println("<li><a class='dropdown-item' href='../lista_deseos.jsp'>Lista de deseos</a></li>");
-                                out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
+                                out.println("<li><a class='dropdown-item' href='../miscomentarios.jsp'>Mis comentarios</a></li>");
                                 out.println("<li><hr class='dropdown-divider'></li>");
                                 out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
                                 out.println("</ul>");

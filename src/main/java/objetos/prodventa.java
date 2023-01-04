@@ -15,16 +15,18 @@ public class prodventa {
     private String unidades;
     private double subtotal;
     private String fechaventa;
-    private String fechacompra;
+    private String fechallegada;
+    private String estadoventa;
 
-    public prodventa(String id, String user, String name, String unidades, double subtotal, String fechaventa, String fechacompra) {
+    public prodventa(String id, String user, String name, String unidades, double subtotal, String fechaventa, String fechallegada, String estadoventa) {
         this.id = id;
         this.user = user;
         this.name = name;
         this.unidades = unidades;
         this.subtotal = subtotal;
         this.fechaventa = fechaventa;
-        this.fechacompra = fechacompra;
+        this.fechallegada = fechallegada;
+        this.estadoventa = estadoventa;
     }
 
     public String getId() {
@@ -75,13 +77,21 @@ public class prodventa {
         this.fechaventa = fechaventa;
     }
 
-    public String getFechacompra() {
-        return fechacompra;
+    public String getFechallegada() {
+        return fechallegada;
     }
 
-    public void setFechacompra(String fechacompra) {
-        this.fechacompra = fechacompra;
+    public void setFechallegada(String fechallegada) {
+        this.fechallegada = fechallegada;
     }
-    
+
+    public String getEstadoventa() {
+        return estadoventa;
+    }
+
+    public void setEstadoventa(String estadoventa) {
+        this.estadoventa = estadoventa;
+    }
+
     
 }

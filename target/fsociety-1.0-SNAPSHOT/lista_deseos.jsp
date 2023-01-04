@@ -43,8 +43,8 @@
             nums_lista = nums_lista+1;
         }
 
-        if(posicion > nums_lista && bandera == 1){
-            //out.println("<script>window.location='index.jsp'</script>");
+        if(posicion <= 0 || posicion > nums_lista && bandera == 1){
+            out.println("<script>window.location='index.jsp'</script>");
         }
     }
 %>
@@ -80,7 +80,7 @@
                     out.println("<div class='row my-4 text-end'>");
                     out.println("<div class='col-5'>");
                     out.println("<ul class='list-group'>");
-                    out.println("<li class='list-group-item active' aria-current='true'>");
+                    out.println("<li class='list-group-item active' style='background-color: #1e1e1e;' aria-current='true'>");
                     out.println("<h2>¡Tu lista de deseos!</h2>");
                     out.println("</li>");
                     out.println("</ul>");

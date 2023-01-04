@@ -54,7 +54,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 reg-color">
                     <div class="row p-2 text-end">
                         <ul class="list-group">
-                            <li class="list-group-item active" aria-current="true">
+                            <li class="list-group-item active" style="background-color: #1e1e1e;" aria-current="true">
                                 <h2>Dirección de envio</h2>
                             </li>
                         </ul>        
@@ -148,7 +148,7 @@
                     <ul class='list-group'>
                         <li class="list-group-item" style="background-color: #e3f2fd;">
                             <div class="d-flex justify-content-center">
-                                <h4>Resumen de la orden</h4>
+                                <h4>Resumen del pedido</h4>
                             </div>
                         </li>
                         <%
@@ -164,7 +164,7 @@
                                     out.println("<div class='col-md-12'>");
                                     out.println("<div class='card-body'>");
                                     out.println("<div class='d-flex w-100 justify-content-start my-2'>");
-                                    out.println("<img width='80' height='100' src='assets/productos/prod_2.png' class='image-fluid'>");
+                                    out.println("<img width='80' height='100' src='assets/productos/"+item.getImg()+"' class='image-fluid'>");
                                     out.println("<div class='d-flex w-100 align-items-start p-2'>");
                                     out.println("<small class='card-title'>" + item.getNombre() + "<br> $ " + item.getParcial() + " <br> Cant: " + item.getCantidad() + "</small>");
                                     out.println("</div>");

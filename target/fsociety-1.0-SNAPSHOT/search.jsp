@@ -41,7 +41,7 @@
         nums_lista = nums_lista+1;
     }
     
-    if(posicion > nums_lista && bandera == 1){
+    if(posicion <= 0 || posicion > nums_lista && bandera == 1){
         out.println("<script>window.location='index.jsp'</script>");
     }
 %>
@@ -154,6 +154,7 @@
                     </div>
                 </div>
             </div>
+                            
         </div>
     </body>
 </html>
