@@ -45,6 +45,9 @@ public class agregardeseo extends HttpServlet {
             String opt = request.getParameter("opt");
             if(opt == null){
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+            }else if(iduser == null){
+                request.setAttribute("mensaje", "Primero incia sesión para agregarlo a tu lista de deseos!");
+                request.getRequestDispatcher("login.jsp?opt=3&id="+idprod).forward(request, response);
             }
             
             if(opt.equals("1")){

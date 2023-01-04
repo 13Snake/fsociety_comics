@@ -14,6 +14,8 @@
     
     if (request.getAttribute("mensaje") != null) {
         out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+        request.removeAttribute("mensaje");
+        out.println("<script>window.location='miseguridad.jsp'</script>");
     }
 %>
 <!DOCTYPE html>
@@ -22,69 +24,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mi cuenta-Fsociety</title>
+        <title>Seguridad de la cuenta-Fsociety</title>
 
-        <!--CSS Y JS BOOTSTRAP-->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="scrips/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-    <!--INICIA BARRA DE NAVEGACIÓN-->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
-        <div class="container-fluid">
-            <div class="col-1">
-                <a class="navbar-brand" href="index.jsp">
-                    <img src="assets/logo.jpg" alt="" width="110" height="90" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="col-7 d-flex mx-3" role="search" action="#">
-                    <input class="form-control me-2" type="search" placeholder="Buscar en la tienda" aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
-                </form>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a class="nav-link mx-3" href="index.jsp">
-                        <img src="assets/icons/inicio.png" alt="Inicio" width="35" height="25" class="img-fluid txt_nav d-inline-block">
-                    </a>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="#">
-                            <img src="assets/icons/hvacio.png" alt="Lista deseos" width="35" height="25" class="img-fluid txt_nav d-inline-block">
-                        </a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link position-relative" href="#">
-                            <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
-                            <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
-                        </a>
-                    </li>
-                        <%
-                            session = request.getSession();
-                            if(session.getAttribute("idusuario") == null){
-                                out.println("<li class='nav-item mx-3'>");
-                                    out.println("<a class='nav-link' href='login.jsp'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
-                                out.println("</li>");
-                            }else{
-                                out.println("<li class='nav-item dropdown mx-3'>");
-                                    out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
-                                    out.println("<ul class='dropdown-menu'>");
-                                        out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
-                                        out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
-                                        out.println("<li><hr class='dropdown-divider'></li>");
-                                        out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
-                                    out.println("</ul>");
-                                out.println("</li>");
-                            }
-                        %>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    
+        <jsp:include page="auto/navegacion.jsp" flush="true"/>
 
         <div class="container">
             <!--LISTA DE BOTONES-->
@@ -108,7 +53,7 @@
                             <small>Lo mas importante de tu cuenta</small>
                         </a>
 
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="mispedidos.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Mis pedidos</h5>
                                 <!--<?php
@@ -128,7 +73,7 @@
                             <small class="text-muted">¡Recuerda que no hay costo por cancelacion!</small>
                         </a>
 
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="lista_deseos.jsp" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Lista de deseos</h5>
                             </div>

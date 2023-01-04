@@ -50,132 +50,7 @@
     </head>
     <body>
 
-        <!--INICIA BARRA DE NAVEGACIÓN-->
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
-            <div class="container-fluid">
-                <div class="col-1">
-                    <a class="navbar-brand" href="index.jsp">
-                        <img src="assets/logo.jpg" alt="" width="110" height="90" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                    </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="col-7 d-flex mx-3" role="search" action="#">
-                        <input class="form-control me-2" type="search" placeholder="Buscar en la tienda" aria-label="Search">
-                        <button class="btn btn-warning" type="submit">Buscar</button>
-                    </form>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <a class="nav-link mx-3" href="index.jsp">
-                            <img src="assets/icons/inicio.png" alt="Inicio" width="35" height="25" class="img-fluid txt_nav d-inline-block">
-                        </a>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="#">
-                                <img src="assets/icons/hvacio.png" alt="Lista deseos" width="35" height="25" class="img-fluid txt_nav d-inline-block">
-                            </a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link position-relative" href="carrito.jsp">
-                                <img src="assets/icons/full.png" alt="Carrito" width="35" height="25" class="img-fluid txt_nav d-inline-block"> 
-                                <span class="badge text-bg-warning">1</span> <!--NUMERO DE PRODUCTOS EN EL CARRITO--->
-                            </a>
-                        </li>
-                        <%
-                            session = request.getSession();
-                            if (session.getAttribute("idusuario") == null) {
-                                out.println("<li class='nav-item mx-3'>");
-                                out.println("<a class='nav-link' href='login.jsp?opt=0'><img src='assets/icons/sing.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'> </a>");
-                                out.println("</li>");
-                            } else {
-                                out.println("<li class='nav-item dropdown mx-3'>");
-                                out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'><img src='assets/icons/log.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
-                                out.println("<ul class='dropdown-menu'>");
-                                out.println("<li><a class='dropdown-item' href='micuenta.jsp'>Mi información</a></li>");
-                                out.println("<li><a class='dropdown-item' href='miseguridad.jsp'>Seguridad</a></li>");
-                                out.println("<li><a class='dropdown-item' href='#'>Mis pedidos</a></li>");
-                                out.println("<li><a class='dropdown-item' href='#'>Lista de deseos</a></li>");
-                                out.println("<li><a class='dropdown-item' href='#'>Mis comentarios</a></li>");
-                                out.println("<li><hr class='dropdown-divider'></li>");
-                                out.println("<li><a class='text-danger dropdown-item' href='close_login'>Cerrar Session</a></li>");
-                                out.println("</ul>");
-                                out.println("</li>");
-                            }
-                        %>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-            <div class="container">
-                <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
-                    <div class="row">
-                        <div class="col-3">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                                        Autores
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Autor1</a></li>
-                                        <li><a class="dropdown-item" href="#">Autor2</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Ver más</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                                        Editoriales
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Editorial1</a></li>
-                                        <li><a class="dropdown-item" href="#">Editorial2</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Ver más</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                                        Categorías
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Categoria1</a></li>
-                                        <li><a class="dropdown-item" href="#">Categoria2</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Ver más</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-                                        Colecciones
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Coleccion1</a></li>
-                                        <li><a class="dropdown-item" href="#">Coleccion2</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Ver más</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!--TERMINA BARRA DE NAVEGACIÓN-->
+        <jsp:include page="auto/navegacion.jsp" flush="true"/>
 
         <div class="container my-4">
             <div class="row d-flex justify-content-evenly">
@@ -186,8 +61,13 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 reg-color">
                     <div class="list-group">
                         <li class="list-group-item bg-light" aria-current="true" >
-                            <div class="d-flex w-100 justify-content-start">
-                                <h5 class="mb-1"><% out.println(prod.getNombre()); %></h5><br>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><% out.println(prod.getNombre()); %></h5>
+                                <% out.println("<a type='button' href='addwish?idprod="+prod.getId()+"&opt=1'>");%>
+                                    <span class='badge text-bg-light'>
+                                        <img src='assets/icons/hvacio.png' width='30' height='30' class='img-fluid txt_nav d-inline-block'>
+                                    </span>
+                                </a>
                             </div>
                         </li>
                         <li class="list-group-item bg-light" aria-current="true">
@@ -408,7 +288,7 @@
             <div class="row my-4 text-end">
                 <div class="col-5">
                     <ul class="list-group">
-                        <li class="list-group-item active" aria-current="true">
+                        <li class="list-group-item active"  aria-current="true">
                             <h3>¡Comentarios de otros usuarios!</h3>
                         </li>
                     </ul>        

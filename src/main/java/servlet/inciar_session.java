@@ -88,8 +88,13 @@ public class inciar_session extends HttpServlet {
                     out.println("ID = "+ idprod);
                     request.getRequestDispatcher("infoprod.jsp?id="+idprod).forward(request, response);
                     break;
+                case "3":
+                    out.println("OPT = " +opt);
+                    out.println("ID = "+ idprod);
+                    request.getRequestDispatcher("lista_deseos.jsp?id="+idprod).forward(request, response);
+                    break;
                 default:
-                    request.getRequestDispatcher("lista_deseos.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
             }
         }else{

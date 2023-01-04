@@ -71,7 +71,7 @@
                     out.println("</div>");
                     out.println("<div class='card-body'>");
                     out.println("<h5 class='card-title'>¡Lo sentimos!</h5>");
-                    out.println("<p class='card-text'>No encontramos lo que buscabas, trata a ser más especifico</p>");
+                    out.println("<p class='card-text'>No encontramos lo que buscabas, trata de ser más especifico</p>");
                     out.println("<a href='index.jsp' class='btn btn-warning'>Volver al inicio</a>");
                     out.println("</div>");
                     out.println("<div class='card-footer text-muted'>");
@@ -83,7 +83,7 @@
                     out.println("<div class='row my-4 text-end'>");
                     out.println("<div class='col-5'>");
                     out.println("<ul class='list-group'>");
-                    out.println("<li class='list-group-item active' aria-current='true'>");
+                    out.println("<li class='list-group-item active' style='background-color: #1e1e1e;' aria-current='true'>");
                     out.println("<h2>Resultados de tu busqueda</h2>");
                     out.println("</li>");
                     out.println("</ul>");

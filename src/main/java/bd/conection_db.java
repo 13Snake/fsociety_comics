@@ -13,6 +13,7 @@ import objetos.info_comentarios;
 import objetos.infocarrito;
 import objetos.productoinfo;
 import objetos.productos;
+import objetos.prodventa;
 
 /**
  *
@@ -238,5 +239,17 @@ public class conection_db {
             con.close();
             return 0;
         }
+    }
+    
+    public static ArrayList<prodventa> obtener_pedidos (String user) throws SQLException, ClassNotFoundException{
+        ArrayList<prodventa> pedidos = new ArrayList();
+        Connection con = conectar_db();
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("SELECT usuarios_idusuario as user, id, subtotal, ventas.unidades as unidades, fechaventa, fechallegada, productos.nombreproducto as name FROM ventas INNER JOIN productos ON productos_idproducto = productos.idproducto WHERE usuarios_idusuario = "+user+";");
+        while(rs.next()){
+            prodventa pedido = new prodventa(rs.getString("id"),rs.getString("user"),rs.getString("name"),rs.getString("unidades"),rs.getDouble("subtotal"),rs.getString("fechaventa"),rs.getString("fechallegada"));
+            pedidos.add(pedido);
+        }
+        return pedidos;
     }
 }
