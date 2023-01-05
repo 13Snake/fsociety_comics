@@ -53,7 +53,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fsociety-Busqueda</title>
-
+        <link rel="icon" href="../assets/icons/espada.ico">
         <!--CSS Y JS BOOTSTRAP-->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="scrips/bootstrap.bundle.min.js"></script>
@@ -109,7 +109,7 @@
                         out.println("<a type='button' href='infoprod.jsp?id="+prod.getIdproducto()+"' >"+prod.getName()+"</strong></a>");
                         out.println("</div>");
                         out.println("<div class='col-3 d-flex justify-content-start'>");
-                        out.println("<a type='button' href='#'>");
+                        out.println("<a type='button' href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'>");
                         out.println("<span class='badge text-bg-light'>");
                         out.println("<img src='assets/icons/hvacio.png' width='30' height='30' class='img-fluid txt_nav d-inline-block'>");
                         out.println("</span>");
@@ -157,4 +157,14 @@
                             
         </div>
     </body>
+    <div class="containter-fuid">
+            <footer style="background-color: #e1d9d9;">
+                <div class="d-flex justify-content-center">
+                    <span>Pagina realizada con fines educativos y sin fines de lucro</span>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <span>Diseñadora de la pagina <img src="assets/icons/instagram.png" width="30" height="30" class="img-fluid txt_nav d-inline-block"> @lyly.rodez</span>
+                </div>
+            </footer>
+    </div>
 </html>

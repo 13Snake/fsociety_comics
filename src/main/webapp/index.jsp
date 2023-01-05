@@ -23,94 +23,95 @@ min--%>
 %>
 
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″ />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fsociety-Inicio</title>
-</head>
-<body>
-    
-    <jsp:include page="auto/navegacion.jsp" flush="true"/>
-    
-    <!--CARRUSEL DE IMAGENES-->
-    <div class="containter my-1 mx-4">
-        <div class="row">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″ />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fsociety-Inicio</title>
+        <link rel="icon" href="../assets/icons/espada.ico">
+    </head>
+    <body>
+
+        <jsp:include page="auto/navegacion.jsp" flush="true"/>
+
+        <!--CARRUSEL DE IMAGENES-->
+        <div class="containter my-1 mx-4">
+            <div class="row">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item">
+                            <a target="_blank" href="infoprod.jsp?id=1"><img src="assets/carrusel/carrusel.png" title="Da click para ir al producto" height="300" class="d-block w-100 mx-auto d-block" alt="..."></a>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/carrusel/banner_.png" height="300" class="d-block w-100 mx-auto d-block" alt="...">
+                        </div>
+                        <div class="carousel-item active">
+                            <img src="assets/carrusel/banner_2.png" height="300" class="d-block w-100 mx-auto d-block" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item">
-                        <a href="infoprod.jsp?id=1"><img src="assets/carrusel/carrusel.png" title="Da click para ir al producto" height="300" class="d-block w-100 mx-auto d-block" alt="..."></a>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/carrusel/banner_.png" height="300" class="d-block w-100 mx-auto d-block" alt="...">
-                    </div>
-                    <div class="carousel-item active">
-                        <img src="assets/carrusel/banner_2.png" height="300" class="d-block w-100 mx-auto d-block" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
-    </div>
-    <!--TERMINA CARRUSEL DE IMAGENES-->
-    
-    <%
-        consulta = "SELECT productos_idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, SUM(ventas.unidades) as total, productos.unidades FROM ventas INNER JOIN productos ON ventas.productos_idproducto = productos.idproducto WHERE productos.unidades != 0 GROUP BY productos_idproducto ORDER BY SUM(ventas.unidades) DESC LIMIT 12;";
-        info.clear();
-        info = conection_db.mas_deseados(consulta);
-        prod = info.get(0);
-    %>
-    <!--INICIA PRODUCTOS M�S VENDIDOS-->
-    <div class="containter my-3 mx-1">
-        <div class="row my-4 text-end">
-            <div class="col-5">
-                <ul class="list-group">
-                    <li class="list-group-item active" style="background-color: #1e1e1e;" aria-current="true">
-                        <h2>Productos más vendidos</h2>
-                    </li>
-                </ul>        
+        <!--TERMINA CARRUSEL DE IMAGENES-->
+
+        <%
+            consulta = "SELECT productos_idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, SUM(ventas.unidades) as total, productos.unidades FROM ventas INNER JOIN productos ON ventas.productos_idproducto = productos.idproducto WHERE productos.unidades != 0 GROUP BY productos_idproducto ORDER BY SUM(ventas.unidades) DESC LIMIT 12;";
+            info.clear();
+            info = conection_db.mas_deseados(consulta);
+            prod = info.get(0);
+        %>
+        <!--INICIA PRODUCTOS M�S VENDIDOS-->
+        <div class="containter-fluid my-3 mx-1">
+            <div class="row my-4 text-end">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item active" style="background-color: #1e1e1e;" aria-current="true">
+                            <h2>Productos más vendidos</h2>
+                        </li>
+                    </ul>        
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!--CARRUSEL DE PRODUCTOS M�S VENDIDOS-->
+
+        <!--CARRUSEL DE PRODUCTOS M�S VENDIDOS-->
         <div class="containter-fuid">
             <div id="carrusel_destacados" class="carousel slide">
                 <div class="carousel-inner row-cols-2 row-cols-md-4 g-4">
                     <%
                         int limit = 0;
                         for (int x = 0; x < 3; x++) {
-                            if(x==0){
+                            if (x == 0) {
                                 out.println("<div class='carousel-item active'>");
-                            }else{
+                            } else {
                                 out.println("<div class='carousel-item'>");
                             }
                             out.println("<div class='row row-cols-2 row-cols-md-4 g-4 px-5'>");
-                            for(int y = limit; y<(limit+4); y++){
+                            for (int y = limit; y < (limit + 4); y++) {
                                 prod = info.get(y);
                                 out.println("<div class='col-3 col d-flex justify-content-end'>");
                                 out.println("<div class='card text-bg-light border-dark' style='width: 15rem;'>");
-                                out.println("<a type='button' href='infoprod.jsp?id="+prod.getIdproducto()+"'> <img width='200' height='250' src='assets/productos/"+prod.getImagen()+"' class='card-img-top image-fluid'></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id=" + prod.getIdproducto() + "'> <img width='200' height='250' src='assets/productos/" + prod.getImagen() + "' class='card-img-top image-fluid'></a>");
                                 out.println("<div class='card-body'>");
                                 out.println("<div class='row d-flex justify-content-between'>");
                                 out.println("<div class='col-9'>");
-                                out.println("<a type='button' href='infoprod.jsp?id='"+prod.getIdproducto()+"' >"+prod.getName()+"</strong></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id='" + prod.getIdproducto() + "' >" + prod.getName() + "</strong></a>");
                                 out.println("</div>");
                                 out.println("<div class='col-3 d-flex justify-content-start'>");
-                                out.println("<a type='button' href='addwish?idprod="+prod.getIdproducto()+"&opt=1'>");
+                                out.println("<a type='button' href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'>");
                                 out.println("<span class='badge text-bg-light'>");
                                 out.println("<img src='assets/icons/hvacio.png' width='30' height='30' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</span>");
@@ -119,8 +120,8 @@ min--%>
                                 out.println("</div>");
                                 out.println("</div>");
                                 out.println("<div class='card-footer d-flex justify-content-between'>");
-                                out.println("<span>$ "+prod.getPrecio()+"</span>");
-                                out.println("<a type='button' href='carsave?id="+prod.getIdproducto()+"&opt=1' class='btn btn-warning'>");
+                                out.println("<span>$ " + prod.getPrecio() + "</span>");
+                                out.println("<a type='button' href='carsave?id=" + prod.getIdproducto() + "&opt=1' class='btn btn-warning'>");
                                 out.println("<img src='assets/icons/carro.png' alt='A�adir al carrito' width='20' height='20' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</a>");
                                 out.println("</div>");
@@ -144,7 +145,7 @@ min--%>
             </div>
         </div>
         <!--TERMINA PRODUCTOS M�S VENDIDOS-->
-    
+
         <!-- INICIA BANNER DE ARTICULO DESTACABLES EN LA TIENDA-->
         <div class="containter-fuid py-5 my-4 p-2 text-dark" style="background-color: #a87bc7">
             <div class="row row-cols-12 row-cols-md-12 g-12 d-flex justify-content-center">
@@ -162,7 +163,7 @@ min--%>
                                                 <h5 class="card-title">Chainsawman #12</h5>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
+                                                <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
                                                     <span class="badge text-bg-light">
                                                         <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                                     </span>
@@ -186,7 +187,7 @@ min--%>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-5">
                     <div class="card mb-5 bg-light border-dark" style="max-width: 540px;">
                         <div class="row g-0">
@@ -201,7 +202,7 @@ min--%>
                                                 <h5 class="card-title">Berserk #37</h5>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
+                                                <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
                                                     <span class="badge text-bg-light">
                                                         <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                                     </span>
@@ -228,7 +229,7 @@ min--%>
             </div>
         </div>
         <!-- TERMINA BANNER DE ARTICULO CUALQUIER-->
-        
+
         <!--CARRUSEL DE PRODUCTOS MAS DESEADOS-->
         <div class="containter my-3 mx-1">
             <div class="row my-4 text-end">
@@ -252,24 +253,24 @@ min--%>
                     <%
                         limit = 0;
                         for (int x = 0; x < 3; x++) {
-                            if(x==0){
+                            if (x == 0) {
                                 out.println("<div class='carousel-item active'>");
-                            }else{
+                            } else {
                                 out.println("<div class='carousel-item'>");
                             }
                             out.println("<div class='row row-cols-2 row-cols-md-4 g-4 px-5'>");
-                            for(int y = limit; y<(limit+4); y++){
+                            for (int y = limit; y < (limit + 4); y++) {
                                 prod = info.get(y);
                                 out.println("<div class='col-3 col d-flex justify-content-end'>");
                                 out.println("<div class='card text-bg-light border-dark' style='width: 15rem;'>");
-                                out.println("<a type='button' href='infoprod.jsp?id="+prod.getIdproducto()+"'> <img width='200' height='250' src='assets/productos/"+prod.getImagen()+"' class='card-img-top image-fluid'></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id=" + prod.getIdproducto() + "'> <img width='200' height='250' src='assets/productos/" + prod.getImagen() + "' class='card-img-top image-fluid'></a>");
                                 out.println("<div class='card-body'>");
                                 out.println("<div class='row d-flex justify-content-between'>");
                                 out.println("<div class='col-9'>");
-                                out.println("<a type='button' href='infoprod.jsp?id='"+prod.getIdproducto()+"' >"+prod.getName()+"</strong></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id='" + prod.getIdproducto() + "' >" + prod.getName() + "</strong></a>");
                                 out.println("</div>");
                                 out.println("<div class='col-3 d-flex justify-content-start'>");
-                                out.println("<a type='button' href='addwish?idprod="+prod.getIdproducto()+"&opt=1'>");
+                                out.println("<a type='button' href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'>");
                                 out.println("<span class='badge text-bg-light'>");
                                 out.println("<img src='assets/icons/hvacio.png' width='30' height='30' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</span>");
@@ -278,8 +279,8 @@ min--%>
                                 out.println("</div>");
                                 out.println("</div>");
                                 out.println("<div class='card-footer d-flex justify-content-between'>");
-                                out.println("<span>$ "+prod.getPrecio()+"</span>");
-                                out.println("<a type='button' href='carsave?id="+prod.getIdproducto()+"&opt=1' class='btn btn-warning'>");
+                                out.println("<span>$ " + prod.getPrecio() + "</span>");
+                                out.println("<a type='button' href='carsave?id=" + prod.getIdproducto() + "&opt=1' class='btn btn-warning'>");
                                 out.println("<img src='assets/icons/carro.png' alt='A�adir al carrito' width='20' height='20' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</a>");
                                 out.println("</div>");
@@ -302,80 +303,81 @@ min--%>
                 </button>
             </div>
         </div>
-        
-    <!-- INICIA BANNER DE ARTICULO DESTACABLES EN LA TIENDA-->
-    <div class="containter-fuid py-5 my-4 bg-secondary p-2 text-dark bg-opacity-50">
-        <div class="row row-cols-12 row-cols-md-12 g-12 d-flex justify-content-center">
-            <div class="col-5">
-                <div class="card mb-5 bg-light border-dark" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <img width='400' height='450' src="assets/productos/prod_4.png" class="card-img-top image-fluid" alt="..."">
-                        </div>
-                        <div class="col-md-6 d-flex">
-                            <div class="row">
-                                <div class="card-body">
-                                    <div class="row d-flex justify-content-between">
-                                        <div class="col-9">
-                                            <h5 class="card-title">One Piece #27</h5>
+
+        <!-- INICIA BANNER DE ARTICULO DESTACABLES EN LA TIENDA-->
+        <div class="containter-fuid py-5 my-4 bg-secondary p-2 text-dark bg-opacity-50">
+            <div class="row row-cols-12 row-cols-md-12 g-12 d-flex justify-content-center">
+                <div class="col-5">
+                    <div class="card mb-5 bg-light border-dark" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <img width='400' height='450' src="assets/productos/prod_4.png" class="card-img-top image-fluid" alt="..."">
+                            </div>
+                            <div class="col-md-6 d-flex">
+                                <div class="row">
+                                    <div class="card-body">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col-9">
+                                                <h5 class="card-title">One Piece #27</h5>
+                                            </div>
+                                            <div class="col-3 d-flex justify-content-start">
+                                                <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                    <span class="badge text-bg-light">
+                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                    </span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="col-3 d-flex justify-content-start">
-                                            <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                <span class="badge text-bg-light">
-                                                    <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                </span>
-                                            </a>
-                                        </div>
+                                        <p class="card-text">
+                                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                        </p>
                                     </div>
-                                    <p class="card-text">
-                                        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                    </p>
-                                </div>
-                                <div class="row d-flex align-items-end">
-                                    <div class="mx-3 card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>                                                
+                                    <div class="row d-flex align-items-end">
+                                        <div class="mx-3 card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>                                                
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-5">
-                <div class="card mb-5 border-dark bg-light" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <img width='400' height='450' src="assets/productos/prod_5.png" class="card-img-top image-fluid" alt="...">
-                        </div>
-                        <div class="col-md-6 d-flex">
-                            <div class="row">
-                                <div class="card-body">
-                                    <div class="row d-flex justify-content-between">
+                <div class="col-5">
+                    <div class="card mb-5 border-dark bg-light" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <img width='400' height='450' src="assets/productos/prod_5.png" class="card-img-top image-fluid" alt="...">
+                            </div>
+                            <div class="col-md-6 d-flex">
+                                <div class="row">
+                                    <div class="card-body">
+                                        <div class="row d-flex justify-content-between">
                                             <div class="col-9">
                                                 <h5 class="card-title">One Piece #27</h5>
                                             </div>
                                             <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
+                                                <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
                                                     <span class="badge text-bg-light">
                                                         <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
                                                     </span>
                                                 </a>
                                             </div>
+                                        </div>
+                                        <p class="card-text">
+                                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                        </p>
                                     </div>
-                                    <p class="card-text">
-                                        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                    </p>
-                                </div>
-                                <div class="row d-flex align-items-end">
-                                    <div class="mx-3 card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>                                                
+                                    <div class="row d-flex align-items-end">
+                                        <div class="mx-3 card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>                                                
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -384,10 +386,9 @@ min--%>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- TERMINA BANNER DE ARTICULO CUALQUIER-->
-    
-    <!--CARRUSEL DE PRODUCTOS MANGAS-->
+        <!-- TERMINA BANNER DE ARTICULO CUALQUIER-->
+
+        <!--CARRUSEL DE PRODUCTOS MANGAS-->
         <div class="containter my-3 mx-1">
             <div class="row my-4 text-end">
                 <div class="col-5">
@@ -411,24 +412,24 @@ min--%>
                     <%
                         limit = 0;
                         for (int x = 0; x < 3; x++) {
-                            if(x==0){
+                            if (x == 0) {
                                 out.println("<div class='carousel-item active'>");
-                            }else{
+                            } else {
                                 out.println("<div class='carousel-item'>");
                             }
                             out.println("<div class='row row-cols-2 row-cols-md-4 g-4 px-5'>");
-                            for(int y = limit; y<(limit+4); y++){
+                            for (int y = limit; y < (limit + 4); y++) {
                                 prod = info.get(y);
                                 out.println("<div class='col-3 col d-flex justify-content-end'>");
                                 out.println("<div class='card text-bg-light border-dark' style='width: 15rem;'>");
-                                out.println("<a type='button' href='infoprod.jsp?id="+prod.getIdproducto()+"'> <img width='200' height='250' src='assets/productos/"+prod.getImagen()+"' class='card-img-top image-fluid'></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id=" + prod.getIdproducto() + "'> <img width='200' height='250' src='assets/productos/" + prod.getImagen() + "' class='card-img-top image-fluid'></a>");
                                 out.println("<div class='card-body'>");
                                 out.println("<div class='row d-flex justify-content-between'>");
                                 out.println("<div class='col-9'>");
-                                out.println("<a type='button' href='infoprod.jsp?id='"+prod.getIdproducto()+"' >"+prod.getName()+"</strong></a>");
+                                out.println("<a type='button' href='infoprod.jsp?id='" + prod.getIdproducto() + "' >" + prod.getName() + "</strong></a>");
                                 out.println("</div>");
                                 out.println("<div class='col-3 d-flex justify-content-start'>");
-                                out.println("<a type='button' href='addwish?idprod="+prod.getIdproducto()+"&opt=1'>");
+                                out.println("<a type='button' href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'>");
                                 out.println("<span class='badge text-bg-light'>");
                                 out.println("<img src='assets/icons/hvacio.png' width='30' height='30' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</span>");
@@ -437,8 +438,8 @@ min--%>
                                 out.println("</div>");
                                 out.println("</div>");
                                 out.println("<div class='card-footer d-flex justify-content-between'>");
-                                out.println("<span>$ "+prod.getPrecio()+"</span>");
-                                out.println("<a type='button' href='carsave?id="+prod.getIdproducto()+"&opt=1' class='btn btn-warning'>");
+                                out.println("<span>$ " + prod.getPrecio() + "</span>");
+                                out.println("<a type='button' href='carsave?id=" + prod.getIdproducto() + "&opt=1' class='btn btn-warning'>");
                                 out.println("<img src='assets/icons/carro.png' alt='A�adir al carrito' width='20' height='20' class='img-fluid txt_nav d-inline-block'>");
                                 out.println("</a>");
                                 out.println("</div>");
@@ -461,339 +462,350 @@ min--%>
                 </button>
             </div>
         </div>
-    <!--TERMINA CARRUSEL DE PRODUCTOS MANGAS-->
-    
-    <!--CARRUSEL DE PRODUCTOS COMICS-->
+        <!--TERMINA CARRUSEL DE PRODUCTOS MANGAS-->
+
+        <!--CARRUSEL DE PRODUCTOS COMICS-->
         <div class="containter my-3 mx-1">
-        <div class="row my-4 text-end">
-            <div class="col-5">
-                <ul class="list-group">
-                    <li class="list-group-item active" style="background-color: #1e1e1e;" aria-current="true">
-                        <h2>Comics</h2>
-                    </li>
-                </ul>        
-            </div>
-        </div>
-        <%
-            info.clear();
-            consulta = "SELECT idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, TRUNCATE(SUM(comentarios.calificacion) / COUNT(comentarios.comentario),2) as promedio FROM productos INNER JOIN comentarios ON comentarios.productos_idproducto = productos.idproducto WHERE productos.categorias_idcategorias = 6 GROUP BY productos_idproducto ORDER BY COUNT(comentarios.comentario) DESC LIMIT 11;";
-            info = conection_db.mas_deseados(consulta);
-        %>
-        <div class="containter-fuid">
-            <div id="carrusel_comics" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
-                <div class="carousel-inner row-cols-2 row-cols-md-4 g-4">
-                    <div class="carousel-item active">
-                        <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                        <span>$19.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                        <span>$19.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-item">
-                        <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                        <span>$19.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-item">
-                        <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <span>$19.00</span>
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3 col d-flex justify-content-end">
-                                <div class="card text-bg-light border-dark" style="width: 15rem;">
-                                    <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
-                                    <div class="card-body">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-9">
-                                                <strong><span class="card-title">One Piece #27</span></strong>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-start">
-                                                <a type="button" <% out.println("href='addwish?idprod="+prod.getIdproducto()+"&opt=1'"); %> >
-                                                    <span class="badge text-bg-light">
-                                                        <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between">
-                                        <a type="button" href="#" class="btn btn-warning">
-                                            <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
-                                        </a>
-                                        <span>$19.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row my-4 text-end">
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item active" style="background-color: #1e1e1e;" aria-current="true">
+                            <h2>Comics</h2>
+                        </li>
+                    </ul>        
                 </div>
-                <button class="carousel-control-prev" data-bs-target="#carrusel_comics" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" data-bs-target="#carrusel_comics" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
+            <%
+                info.clear();
+                consulta = "SELECT idproducto as prod, imagen as img, nombreproducto as name, precio as preci, descripcionprod as descrip, TRUNCATE(SUM(comentarios.calificacion) / COUNT(comentarios.comentario),2) as promedio FROM productos INNER JOIN comentarios ON comentarios.productos_idproducto = productos.idproducto WHERE productos.categorias_idcategorias = 6 GROUP BY productos_idproducto ORDER BY COUNT(comentarios.comentario) DESC LIMIT 11;";
+                info = conection_db.mas_deseados(consulta);
+            %>
+            <div class="containter-fuid">
+                <div id="carrusel_comics" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                    <div class="carousel-inner row-cols-2 row-cols-md-4 g-4">
+                        <div class="carousel-item active">
+                            <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                            <span>$19.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                            <span>$19.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                            <span>$19.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="row row-cols-2 row-cols-md-4 g-4 px-5">
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_1.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'"); %> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <span>$19.00</span>
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col d-flex justify-content-end">
+                                    <div class="card text-bg-light border-dark" style="width: 15rem;">
+                                        <img width='200' height='250' src="assets/productos/prod_2.png" class="card-img-top image-fluid" alt="...">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-9">
+                                                    <strong><span class="card-title">One Piece #27</span></strong>
+                                                </div>
+                                                <div class="col-3 d-flex justify-content-start">
+                                                    <a type="button" <% out.println("href='addwish?idprod=" + prod.getIdproducto() + "&opt=1'");%> >
+                                                        <span class="badge text-bg-light">
+                                                            <img src="assets/icons/hvacio.png" alt="" width="30" height="30" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between">
+                                            <a type="button" href="#" class="btn btn-warning">
+                                                <img src="assets/icons/carro.png" alt="A�adir al carrito" width="20" height="20" class="img-fluid txt_nav d-inline-block"> <!--LOGO QUE FUNCION COMO BOTON-->
+                                            </a>
+                                            <span>$19.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" data-bs-target="#carrusel_comics" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" data-bs-target="#carrusel_comics" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <!--TERMINA CARRUSEL DE PRODUCTOS COMICS-->
         </div>
-        <!--TERMINA CARRUSEL DE PRODUCTOS COMICS-->
+        
+    </body>
+    <div class="containter-fuid">
+        <footer style="background-color: #e1d9d9;">
+            <div class="d-flex justify-content-center">
+                <span>Pagina realizada con fines educativos y sin fines de lucro</span>
+            </div>
+            <div class="d-flex justify-content-start">
+                <span>Diseñadora de la pagina <img src="assets/icons/instagram.png" width="30" height="30" class="img-fluid txt_nav d-inline-block"> @lyly.rodez</span>
+            </div>
+        </footer>
     </div>
-</body>
 </html>

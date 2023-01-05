@@ -99,7 +99,7 @@ public class hacerventa extends HttpServlet {
                         con.close();
                         session.removeAttribute("carrito");
                         request.setAttribute("mensaje", "Tu venta ha sido realizada con exito");
-                        request.getRequestDispatcher("micuenta.jsp").forward(request, response);
+                        request.getRequestDispatcher("mispedidos.jsp").forward(request, response);
                     }
                 }else if(bandera==0){
                     con.close();

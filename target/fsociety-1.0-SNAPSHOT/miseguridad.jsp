@@ -25,7 +25,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Seguridad de la cuenta-Fsociety</title>
-
+        <link rel="icon" href="../assets/icons/espada.ico">
     </head>
     <body>
     
@@ -209,6 +209,16 @@
                 })
             })()
         </script>
-
     </body>
+    
+    <div class="containter-fuid">
+            <footer style="background-color: #e1d9d9;">
+                <div class="d-flex justify-content-center">
+                    <span>Pagina realizada con fines educativos y sin fines de lucro</span>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <span>Diseñadora de la pagina <img src="assets/icons/instagram.png" width="30" height="30" class="img-fluid txt_nav d-inline-block"> @lyly.rodez</span>
+                </div>
+            </footer>
+    </div>
 </html>

@@ -28,6 +28,7 @@
         <title>Fsociety - Carrito de compras</title>
 
         <script src="scrips/main.css"></script>
+        <link rel="icon" href="../assets/icons/espada.ico">
     </head>
     <body>
 
@@ -201,4 +202,14 @@
             })()
         </script>
     </body>
+    <div class="containter-fuid">
+            <footer style="background-color: #e1d9d9;">
+                <div class="d-flex justify-content-center">
+                    <span>Pagina realizada con fines educativos y sin fines de lucro</span>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <span>Diseñadora de la pagina <img src="assets/icons/instagram.png" width="30" height="30" class="img-fluid txt_nav d-inline-block"> @lyly.rodez</span>
+                </div>
+            </footer>
+    </div>
 </html>

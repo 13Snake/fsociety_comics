@@ -31,8 +31,6 @@
     }
     prod = info.get(0);
     
-    String user = session.getAttribute("idusuario").toString();
-    
     String bt_nums = request.getParameter("pos");
     int posicion;
     int bandera = 0;
@@ -61,7 +59,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fsociety - <% out.println(prod.getNombre()); %></title>
-
+        <link rel="icon" href="../assets/icons/espada.ico">
         <!--CSS Y JS BOOTSTRAP-->
         <style>
             textarea{
@@ -111,8 +109,8 @@
                                 %>
                                 <%
                                     if (calificacion != 0) {
-                                        out.println("<div class='d-flex w-100 justify-content-evenly'>");
-                                        out.println("<img src='assets/icons/c" + calificacion + ".jpg' alt='c1' width='190' class='img-fluid'>");
+                                        out.println("<div class='d-flex w-100 justify-content-center'>");
+                                        out.println("<img src='assets/icons/cal_" + calificacion + ".png' width='250' class='img-fluid'>");
                                         out.println("</div>");
                                     } else if (calificacion == 0) {
                                         out.println("<div class='d-flex w-100 justify-content-evenly'>");
@@ -253,27 +251,27 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="row d-flex justify-content-evenly">
+                                    <div class="row d-flex justify-content-between">
                                         <span class="m-2">¡Califica el producto!</span>
                                         <div class="col-3 form-check">
                                             <input class="form-check-input" type="radio" name="calif" id="exampleRadios1" value="1" required <% if(coments != null){if(coments.getCalificacion().equals("1")){out.println("checked");}} %>>
-                                            <label class="form-check-label" for="exampleRadios1"><img src='assets/icons/c1.jpg' alt='c1' width='50' class='img-fluid'></label>
+                                            <label class="form-check-label" for="exampleRadios1"><img src='assets/icons/ca1.png' alt='c1' width='50' class='img-fluid'></label>
                                         </div>
                                         <div class="col-4 form-check">
                                             <input class="form-check-input" type="radio" name="calif" id="exampleRadios2" value="2" required <% if(coments != null){if(coments.getCalificacion().equals("2")){out.println("checked");}} %>>
-                                            <label class="form-check-label" for="exampleRadios2"><img src='assets/icons/c2.jpg' alt='c2' width="100" class='img-fluid'></label>
+                                            <label class="form-check-label" for="exampleRadios2"><img src='assets/icons/ca2.png' alt='c2' width="100" class='img-fluid'></label>
                                         </div>
                                         <div class="col-5 form-check">
                                             <input class="form-check-input" type="radio" name="calif" id="exampleRadios3" value="3" required <% if(coments != null){if(coments.getCalificacion().equals("3")){out.println("checked");}} %>>
-                                            <label class="form-check-label" for="exampleRadios3"><img src='assets/icons/c3.jpg' alt='c3' width="130" class='img-fluid'></label>
+                                            <label class="form-check-label" for="exampleRadios3"><img src='assets/icons/ca3.png' alt='c3' width="130" class='img-fluid'></label>
                                         </div>
                                         <div class="col-6 form-check d-flex justify-content-evenly py-4">
                                             <input class="form-check-input" type="radio" name="calif" id="exampleRadios4" value="4" required <% if(coments != null){if(coments.getCalificacion().equals("4")){out.println("checked");}} %>>
-                                            <label class="form-check-label" for="exampleRadios4"><img src='assets/icons/c4.jpg' alt='c4' width="160" class='img-fluid'></label>
+                                            <label class="form-check-label" for="exampleRadios4"><img src='assets/icons/ca4.png' alt='c4' width="160" class='img-fluid'></label>
                                         </div>
                                         <div class="col-6 form-check py-4">
                                             <input class="form-check-input" type="radio" name="calif" id="exampleRadios5" value="5" required <% if(coments != null){if(coments.getCalificacion().equals("5")){out.println("checked");}} %>>
-                                            <label class="form-check-label" for="exampleRadios5"><img src='assets/icons/c5.jpg' alt='c5' width="190" class='img-fluid'></label>
+                                            <label class="form-check-label" for="exampleRadios5"><img src='assets/icons/ca5.png' alt='c5' width="190" class='img-fluid'></label>
                                         </div>
                                     </div>
                                 </div>
@@ -360,7 +358,7 @@
                         out.println("</div>");
                         out.println("</div>");
                         out.println("<div class='col-3 d-flex align-content-center py-4'>");
-                        out.println("<img src='assets/icons/c"+com.getCalificacion()+".jpg' class='img-fluid'>");
+                        out.println("<img src='assets/icons/cal_"+com.getCalificacion()+".png' class='img-fluid'>");
                         out.println("</div>");
                         out.println("</div>");
                         out.println("</div>");
@@ -388,7 +386,7 @@
                                             out.println("<span class='page-link'>" + x + "</span>");
                                             out.println("</li>");
                                         } else {
-                                            out.println("<li class='page-item'><a class='page-link' href='miscomentarios.jsp?pos=" + x + "'>" + x + "</a></li>");
+                                            out.println("<li class='page-item'><a class='page-link' href='infoprod.jsp?id="+ idbusqueda +"&pos=" + x + "'>" + x + "</a></li>");
                                             out.println("</li>");
                                         }
                                     }
@@ -422,4 +420,14 @@
             })()
         </script>
     </body>
+    <div class="containter-fuid">
+            <footer style="background-color: #e1d9d9;">
+                <div class="d-flex justify-content-center">
+                    <span>Pagina realizada con fines educativos y sin fines de lucro</span>
+                </div>
+                <div class="d-flex justify-content-start">
+                    <span>Diseñadora de la pagina <img src="assets/icons/instagram.png" width="30" height="30" class="img-fluid txt_nav d-inline-block"> @lyly.rodez</span>
+                </div>
+            </footer>
+    </div>
 </html>
