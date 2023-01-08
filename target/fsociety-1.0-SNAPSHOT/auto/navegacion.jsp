@@ -8,7 +8,8 @@
 <%
     ArrayList<infocarrito> info_car = new ArrayList();
     if (request.getAttribute("mensaje") != null) {
-        out.println("<script>alert('" + request.getAttribute("mensaje") + "'); </script>");
+        out.println("<scrip"
+        + "t>alert('" + request.getAttribute("mensaje") + "'); </script>");
         request.removeAttribute("mensaje");
         out.println("<script>window.location='index.jsp'</script>");
     }
@@ -27,7 +28,7 @@
     </head>
     <body>
         <!--INICIA BARRA DE NAVEGACI�N-->
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #56070c">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black">
             <div class="container-fluid">
                 <div class="col-2 d-flex justify-content-center">
                     <a class="navbar-brand" href="../index.jsp">
