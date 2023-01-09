@@ -21,9 +21,9 @@ import objetos.tablapedidos;
  * @author ksio
  */
 public class conection_db {
-    private static String url = "jdbc:mysql://localhost:3306/dbfsociety?characterEncoding=utf-8"; //donde se encuentra la base de datos
+    private static String url = "jdbc:mysql://node60487-fsociety.jl.serv.net.mx:3306/dbfsociety?characterEncoding=utf-8"; //donde se encuentra la base de datos
     private static String usuario = "root";
-    private static String pass = "";
+    private static String pass = "EMVpry28183";
     
     private static java.sql.Statement stmt = null;
     private static java.sql.ResultSet rs = null;

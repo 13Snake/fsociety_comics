@@ -60,47 +60,49 @@ public class metodoscarrito extends HttpServlet {
                 //OBTENGO EL OBJETO SI EXISTE EL PRODUCTO
                 obj_carrito = database.existencia_producto(consulta,1);
                 if(obj_carrito.getUnidades() == 0){
+                    request.setAttribute("mensaje", "Lo sentimos, el producto esta agotado");
                     request.getRequestDispatcher("infoprod.jsp?id="+obj_carrito.getIdprod()).forward(request, response);
-                }
-                if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
-                    //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
-                    if (array_info.size() >= 0) {
+                }else{
+                    if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
+                        //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
+                        if (array_info.size() >= 0) {
 
-                        cantidad = 0;
-                        int posicion = 0;
-                        float parcial = 0;
-                        float precio = 0;
+                            cantidad = 0;
+                            int posicion = 0;
+                            float parcial = 0;
+                            float precio = 0;
 
-                        for (infocarrito obj_array : array_info) {
-                            if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
-                                cantidad = obj_array.getCantidad();
-                                if(cantidad <= obj_array.getUnidades()){
-                                    bandera = 1;
-                                    cantidad = cantidad + 1;
-                                    precio = obj_carrito.getUnitario();
-                                    parcial = cantidad * precio;
-                                    obj_carrito.setCantidad(cantidad);
-                                    obj_carrito.setParcial(parcial);
-                                    array_info.set(posicion, obj_carrito);
-                                    break;
-                                }else{
-                                    bandera = 1;
-                                    break;
+                            for (infocarrito obj_array : array_info) {
+                                if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
+                                    cantidad = obj_array.getCantidad();
+                                    if(cantidad <= obj_array.getUnidades()){
+                                        bandera = 1;
+                                        cantidad = cantidad + 1;
+                                        precio = obj_carrito.getUnitario();
+                                        parcial = cantidad * precio;
+                                        obj_carrito.setCantidad(cantidad);
+                                        obj_carrito.setParcial(parcial);
+                                        array_info.set(posicion, obj_carrito);
+                                        break;
+                                    }else{
+                                        bandera = 1;
+                                        break;
+                                    }
                                 }
+                                posicion = posicion + 1;
                             }
-                            posicion = posicion + 1;
+                        } else {
+                            array_info.add(obj_carrito);
+                            session.setAttribute("carrito", array_info);
                         }
+
+                        if (bandera == 0) {
+                            array_info.add(obj_carrito);
+                        }
+                        response.sendRedirect("carrito.jsp");
                     } else {
-                        array_info.add(obj_carrito);
-                        session.setAttribute("carrito", array_info);
+                        response.sendRedirect("index.jsp");
                     }
-                    
-                    if (bandera == 0) {
-                        array_info.add(obj_carrito);
-                    }
-                    response.sendRedirect("carrito.jsp");
-                } else {
-                    response.sendRedirect("index.jsp");
                 }
                 break;
             case "2":
@@ -112,45 +114,47 @@ public class metodoscarrito extends HttpServlet {
                 //OBTENGO EL OBJETO SI EXISTE EL PRODUCTO
                 obj_carrito = database.existencia_producto(consulta,cantidad);
                 if(obj_carrito.getUnidades() == 0){
+                    request.setAttribute("mensaje", "Lo sentimos, el producto esta agotado");
                     request.getRequestDispatcher("infoprod.jsp?id="+obj_carrito.getIdprod()).forward(request, response);
-                }
-                if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
-                    //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
-                    if (array_info.size() >= 0) {
+                }else{
+                    if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
+                        //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
+                        if (array_info.size() >= 0) {
 
-                        int posicion = 0;
-                        float parcial = 0;
-                        float precio = 0;
-                        
-                        for (infocarrito obj_array : array_info) {
-                            if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
-                                if(cantidad <= obj_array.getUnidades()){
-                                    bandera = 1;
-                                    precio = obj_carrito.getUnitario();
-                                    parcial = cantidad * precio;
-                                    obj_carrito.setCantidad(cantidad);
-                                    obj_carrito.setParcial(parcial);
-                                    array_info.set(posicion, obj_carrito);
-                                    break;
-                                }else{
-                                    bandera = 1;
-                                    break;
+                            int posicion = 0;
+                            float parcial = 0;
+                            float precio = 0;
+
+                            for (infocarrito obj_array : array_info) {
+                                if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
+                                    if(cantidad <= obj_array.getUnidades()){
+                                        bandera = 1;
+                                        precio = obj_carrito.getUnitario();
+                                        parcial = cantidad * precio;
+                                        obj_carrito.setCantidad(cantidad);
+                                        obj_carrito.setParcial(parcial);
+                                        array_info.set(posicion, obj_carrito);
+                                        break;
+                                    }else{
+                                        bandera = 1;
+                                        break;
+                                    }
                                 }
+                                posicion = posicion + 1;
                             }
-                            posicion = posicion + 1;
+                        } else {
+                            array_info.add(obj_carrito);
+                            session.setAttribute("carrito", array_info);
                         }
+
+                        if (bandera == 0) {
+                            array_info.add(obj_carrito);
+                        }
+
+                        response.sendRedirect("carrito.jsp");
                     } else {
-                        array_info.add(obj_carrito);
-                        session.setAttribute("carrito", array_info);
+                        response.sendRedirect("index.jsp");
                     }
-                    
-                    if (bandera == 0) {
-                        array_info.add(obj_carrito);
-                    }
-                    
-                    response.sendRedirect("carrito.jsp");
-                } else {
-                    response.sendRedirect("index.jsp");
                 }
                 break;
             case "3":
@@ -162,29 +166,30 @@ public class metodoscarrito extends HttpServlet {
                 obj_carrito = database.existencia_producto(consulta,cantidad);
                 if(obj_carrito.getUnidades() == 0){
                     request.getRequestDispatcher("infoprod.jsp?id="+obj_carrito.getIdprod()).forward(request, response);
-                }
-                if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
-                    //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
-                    if (array_info.size() >= 0) {
+                }else{
+                    if (obj_carrito != null) {//SI ES NULO EL OBJETO NO EXISTE
+                        //SI EXISTE ENTONCES BUSCO DENTRO DE EL SI YA EXISTE EL PRODUCTO EN EL CARRITO
+                        if (array_info.size() >= 0) {
 
-                        int posicion = 0;
-                        float parcial = 0;
-                        float precio = 0;
-                        
-                        for (infocarrito obj_array : array_info) {
-                            if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
-                                array_info.remove(posicion);
-                                break;
+                            int posicion = 0;
+                            float parcial = 0;
+                            float precio = 0;
+
+                            for (infocarrito obj_array : array_info) {
+                                if (obj_array.getIdprod().equals(obj_carrito.getIdprod())) {
+                                    array_info.remove(posicion);
+                                    break;
+                                }
+                                posicion = posicion + 1;
                             }
-                            posicion = posicion + 1;
                         }
+                        if(array_info.isEmpty()){ //SI EL ARRAY DEL CARRITO ESTA VACIO, ENTONCES ELIMINIA LA VARIABLE DE CARRITO
+                            session.removeAttribute("carrito");
+                        }
+                        response.sendRedirect("carrito.jsp");
+                    } else {
+                        response.sendRedirect("index.jsp");
                     }
-                    if(array_info.isEmpty()){ //SI EL ARRAY DEL CARRITO ESTA VACIO, ENTONCES ELIMINIA LA VARIABLE DE CARRITO
-                        session.removeAttribute("carrito");
-                    }
-                    response.sendRedirect("carrito.jsp");
-                } else {
-                    response.sendRedirect("index.jsp");
                 }
                 break;
             case "4":

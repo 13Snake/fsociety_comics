@@ -1,3 +1,17 @@
 objetos\productos.class
+servlet\metodoscarrito.class
+objetos\infocarrito.class
+servlet\guardardireccion.class
+bd\conection_db.class
 servlet\close_login.class
+servlet\inciar_session.class
+objetos\prodventa.class
+servlet\verificartarjeta.class
+servlet\agregardeseo.class
+servlet\hacerventa.class
+servlet\metodoscomentarios.class
+objetos\info_comentarios.class
+objetos\productoinfo.class
 servlet\registro.class
+servlet\editarcuenta.class
+objetos\tablapedidos.class

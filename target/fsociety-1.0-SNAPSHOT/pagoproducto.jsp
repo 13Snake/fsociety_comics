@@ -60,7 +60,7 @@
                                 <div class="card-body">
                                     <strong><small class="card-title">Dirección de envio<br></small></strong>
                                             <%
-                                                out.println("<small class='card-title'>" + user_info[1] + " " + user_info[1] + "<br>" + user_info[7] + ", " + user_info[11] + ", " + user_info[14] + ", " + user_info[8] + ",  " + user_info[10] + ", " + user_info[9] + ", " + user_info[6] + "<br> " + user_info[5] + "</small>");
+                                                out.println("<small class='card-title'>" + user_info[1] + " " + user_info[2] + "<br>" + user_info[7] + ", " + user_info[11] + ", " + user_info[14] + ", " + user_info[8] + ",  " + user_info[10] + ", " + user_info[9] + ", " + user_info[6] + "<br> " + user_info[5] + "</small>");
                                             %>
                                 </div>
                             </div>

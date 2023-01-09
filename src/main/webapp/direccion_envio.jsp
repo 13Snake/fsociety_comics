@@ -26,6 +26,11 @@
         }else{
             conection_db con = new conection_db();
             user_info = con.datos_usuario(session.getAttribute("idusuario").toString());
+            if(user_info[6] == null){
+                for(int x = 6; x < user_info.length; x++){
+                    user_info[x] = "";
+                }
+            }
         }
     }else{
         response.sendRedirect("index.jsp");

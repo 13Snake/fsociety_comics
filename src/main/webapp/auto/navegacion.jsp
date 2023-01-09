@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/main.css">
         <script src="../scrips/bootstrap.bundle.min.js"></script>
+        <script src="//code.tidio.co/kibnd8jadzzgcoxpwt8inmbvoldfbn1x.js" async></script>
     </head>
     <body>
         <!--INICIA BARRA DE NAVEGACI�N-->
@@ -76,7 +77,7 @@
                                 out.println("<li class='nav-item dropdown mx-3'>");
                                 out.println("<a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' title='Tu información' aria-expanded='false'><img src='../assets/icons/configuracion.png' alt='Usuario' width='35' height='25' class='img-fluid txt_nav d-inline-block'></a>");
                                 out.println("<ul class='dropdown-menu'>");
-                                out.println("<li><a class='dropdown-item' href='../micuenta.jsp'>Mi informaci�n</a></li>");
+                                out.println("<li><a class='dropdown-item' href='../micuenta.jsp'>Mi información</a></li>");
                                 out.println("<li><a class='dropdown-item' href='../miseguridad.jsp'>Seguridad</a></li>");
                                 out.println("<li><a class='dropdown-item' href='../mispedidos.jsp'>Mis pedidos</a></li>");
                                 out.println("<li><a class='dropdown-item' href='../lista_deseos.jsp'>Lista de deseos</a></li>");
